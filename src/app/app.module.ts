@@ -22,7 +22,7 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
-// import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
@@ -57,7 +57,7 @@ import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OrderListModule } from 'primeng/orderlist';
-// import { OrganizationChartModule } from 'primeng/organizationchart';
+import { OrganizationChartModule } from 'primeng/organizationchart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PaginatorModule } from 'primeng/paginator';
 import { PanelModule } from 'primeng/panel';
@@ -103,6 +103,24 @@ import { CardComponent } from './components/card/card.component';
 import { ApiModule } from './modules/api/api.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
+import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { NavbarAdminComponent } from './components/navbar-admin/navbar-admin.component';
+import { ProductsAdminComponent } from './pages/admin/products-admin/products-admin.component';
+import { UsersComponent } from './pages/admin/users/users.component';
+import { CustomersComponent } from './pages/admin/customers/customers.component';
+import { SuppliesComponent } from './pages/admin/supplies/supplies.component';
+import { ProductDetailsComponent } from './pages/admin/product-details/product-details.component';
+import { NewProductComponent } from './pages/admin/new-product/new-product.component';
+import { EditProductComponent } from './pages/admin/edit-product/edit-product.component';
+import { EditUserComponent } from './pages/admin/edit-user/edit-user.component';
+import { NewUserComponent } from './pages/admin/new-user/new-user.component';
+import { OrdersComponent } from './pages/admin/orders/orders.component';
+import { BuysComponent } from './pages/admin/buys/buys.component';
+import { SupliersComponent } from './pages/admin/supliers/supliers.component';
+import { NewSuplierComponent } from './pages/admin/new-suplier/new-suplier.component';
+import { EditSuplierComponent } from './pages/admin/edit-suplier/edit-suplier.component';
+import { EditSupplyComponent } from './pages/admin/edit-supply/edit-supply.component';
+import { NewSupplyComponent } from './pages/admin/new-supply/new-supply.component';
 
 
 @NgModule({
@@ -115,7 +133,25 @@ import { ApiService } from './services/api.service';
     FooterComponent,
     LoginComponent,
     SignupComponent,
-    CardComponent
+    CardComponent,
+    DashboardComponent,
+    NavbarAdminComponent,
+    ProductsAdminComponent,
+    UsersComponent,
+    CustomersComponent,
+    SuppliesComponent,
+    ProductDetailsComponent,
+    NewProductComponent,
+    EditProductComponent,
+    EditUserComponent,
+    NewUserComponent,
+    OrdersComponent,
+    BuysComponent,
+    SupliersComponent,
+    NewSuplierComponent,
+    EditSuplierComponent,
+    EditSupplyComponent,
+    NewSupplyComponent
   ],
   imports: [
     BrowserModule,
@@ -134,7 +170,7 @@ import { ApiService } from './services/api.service';
     CalendarModule,
     CarouselModule,
     CascadeSelectModule,
-    // ChartModule,
+    ChartModule,
     CheckboxModule,
     ChipModule,
     ChipsModule,
@@ -169,7 +205,7 @@ import { ApiService } from './services/api.service';
     MessagesModule,
     MultiSelectModule,
     OrderListModule,
-    // OrganizationChartModule,
+    OrganizationChartModule,
     OverlayPanelModule,
     PaginatorModule,
     PanelModule,

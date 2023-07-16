@@ -1,0 +1,63 @@
+<app-navbar-admin></app-navbar-admin>
+
+<div class="container-fluid mt-3" style="max-width: 70%;">
+
+
+    <p-tabView styleClass="tabview-custom">
+        <p-tabPanel>
+            <ng-template pTemplate="header">
+                <i style="margin-right: 5px;" class="pi pi-chart-line"></i>
+                <span>Sells</span>
+            </ng-template>
+            <div class="card mt-3">
+                <h4 class="text-center text-capitalize">Sells of week</h4>
+                <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+            </div>
+            <div class="card mt-3">
+                <h4 class="text-center text-capitalize">Sells of month</h4>
+                <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+            </div>
+            <div class="card mt-3">
+                <h4 class="text-center text-capitalize">Sells of year</h4>
+                <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+            </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Stock">
+            <ng-template pTemplate="header">
+                <i style="margin-right: 5px;" class="pi pi-chart-bar"></i>
+                <span>Stock</span>
+            </ng-template>
+            <div class="card mt-3">
+                <p-chart type="line" [data]="data2" [options]="options"></p-chart>
+            </div>
+        </p-tabPanel>
+        
+        <p-tabPanel header="Best Sellers">
+            <ng-template pTemplate="header">
+                <i style="margin-right: 5px;" class="pi pi-chart-bar"></i>
+                <span>Best Sellers</span>
+            </ng-template>
+            <div class="card mt-3">
+                <h4 class="text-center text-capitalize">Best Sellers</h4>
+                <p-chart type="line" [data]="data4" [options]="options"></p-chart>
+            </div>
+            <div class="card mt-3">
+                <h4 class="text-center text-capitalize">Worst Sellers</h4>
+                <p-chart type="line" [data]="data5" [options]="options"></p-chart>
+            </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Expense - Profit">
+            <ng-template pTemplate="header">
+                <i style="margin-right: 5px;" class="pi pi-money-bill"></i>
+                <span>Expense - Profit</span>
+            </ng-template>
+            <div class="card mt-3">
+                <p-chart type="bar" [data]="data3" [options]="options"></p-chart>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+    
+
+</div>

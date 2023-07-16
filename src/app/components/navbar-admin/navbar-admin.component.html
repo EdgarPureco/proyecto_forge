@@ -1,0 +1,10 @@
+<p-menubar [model]="items">
+    <ng-template pTemplate="start" >
+        <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" />
+    </ng-template>
+    <ng-template pTemplate="end">
+        <p-button styleClass="p-button-rounded p-button-raised p-button-sm"
+        class="m-3" label="Logout" icon="pi pi-sign-out" iconPos="right" 
+        (onClick)="logout()"></p-button>
+    </ng-template>
+</p-menubar>
