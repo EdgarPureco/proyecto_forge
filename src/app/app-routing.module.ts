@@ -16,11 +16,14 @@ import { SupliersComponent } from './pages/admin/supliers/supliers.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { NewUserComponent } from './pages/admin/new-user/new-user.component';
 import { CustomersComponent } from './pages/admin/customers/customers.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path:"home", component: HomeComponent},
   {path:"login", component: LoginComponent},
   {path:"signup", component: SignupComponent},
+  {path:"mycart", component: CartComponent},
   {path:"admin/dashboard", component: DashboardComponent},
   {path:"admin/products", component: ProductsAdminComponent},
   {path:"admin/new-product", component: NewProductComponent},

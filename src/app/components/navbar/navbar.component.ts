@@ -24,17 +24,17 @@ export class NavbarComponent implements OnInit {
             {
                 label: 'Show All',
                 icon: 'pi pi-fw pi-bars',
-            },                    
-            {
-                separator: true
-            },
+                routerLink: 'home'
+            },  
             {
                 label: 'Window Frames',
-                icon: 'pi pi-fw pi-microsoft'
+                icon: 'pi pi-fw pi-microsoft',
+                routerLink: 'home'
             },
             {
                 label: 'Door Frames',
-                icon: 'pi pi-fw pi-tablet'
+                icon: 'pi pi-fw pi-tablet',
+                routerLink: 'home'
             },
             {
                 label: 'Pots',

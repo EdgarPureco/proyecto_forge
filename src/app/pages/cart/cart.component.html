@@ -1,1 +1,92 @@
-<p>cart works!</p>
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <h2>My cart</h2>
+            <p-table [value]="products">
+
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                                [alt]="product.name" width="100" class="shadow-4" /></td>
+                        <td>{{product.name}}</td>
+                        <td><p-inputNumber  mode="decimal" [showButtons]="true"
+                                inputId="minmax-buttons" [min]="1" [max]="100"> </p-inputNumber></td>
+                        <td>{{product.price | currency:'USD'}}</td>
+                        <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                                (click)="deleteProduct(product)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="flex align-items-center justify-content-between">
+                        You have {{products ? products.length : 0 }} products in your cart.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <!-- Jumbotron -->
+                <div class="p-4 shadow-4 rounded-3" style="background-color: hsl(0, 0%, 100%);">
+                    <h2>
+                        <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
+                        Checkout</h2>
+                        <hr class="mb-4">
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between">
+                              <span>Total (USD)</span>
+                              <strong>{{total | currency:'USD'}}</strong>
+                            </li>
+                          </ul>
+                        <form class="needs-validation" novalidate="">
+                          
+                          <hr class="mb-4">
+                    
+                          <h4 class="mb-3">Payment</h4>
+                    
+                          
+                          <div class="row">
+                            <div class="col-md-6 mb-3">
+                              <label for="cc-name">Name on card</label>
+                              <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                              <small class="text-muted">Full name as displayed on card</small>
+                              <div class="invalid-feedback">
+                                Name on card is required
+                              </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label for="cc-number">Credit card number</label>
+                              <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                              <div class="invalid-feedback">
+                                Credit card number is required
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-3 mb-3">
+                              <label for="cc-expiration">Expiration</label>
+                              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                              <div class="invalid-feedback">
+                                Expiration date required
+                              </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                              <label for="cc-cvv">CVV</label>
+                              <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                              <div class="invalid-feedback">
+                                Security code required
+                              </div>
+                            </div>
+                          </div>
+                          <hr class="mb-4">
+                          <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                        </form>
+                </div>
+                <!-- Jumbotron -->
+            </div>
+        </div>
+    </div>
+    <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+</div>
