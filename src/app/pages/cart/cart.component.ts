@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from 'src/app/models/product';
-import { ProductService } from 'src/app/services/productservices';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-cart',
@@ -26,10 +26,10 @@ export class CartComponent {
 
     statuses!: any[];
 
-    constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
+    constructor(private apiService: ApiService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
     ngOnInit() {
-        this.productService.getProducts().then((data) => {this.products = data; this.getTotal()}); 
+        this.apiService.getProducts().subscribe((data) => {this.products = data; this.getTotal()}); 
     }
 
     getTotal(){

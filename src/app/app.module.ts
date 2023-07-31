@@ -110,17 +110,9 @@ import { UsersComponent } from './pages/admin/users/users.component';
 import { CustomersComponent } from './pages/admin/customers/customers.component';
 import { SuppliesComponent } from './pages/admin/supplies/supplies.component';
 import { ProductDetailsComponent } from './pages/admin/product-details/product-details.component';
-import { NewProductComponent } from './pages/admin/new-product/new-product.component';
-import { EditProductComponent } from './pages/admin/edit-product/edit-product.component';
-import { EditUserComponent } from './pages/admin/edit-user/edit-user.component';
-import { NewUserComponent } from './pages/admin/new-user/new-user.component';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
 import { BuysComponent } from './pages/admin/buys/buys.component';
 import { SupliersComponent } from './pages/admin/supliers/supliers.component';
-import { NewSuplierComponent } from './pages/admin/new-suplier/new-suplier.component';
-import { EditSuplierComponent } from './pages/admin/edit-suplier/edit-suplier.component';
-import { EditSupplyComponent } from './pages/admin/edit-supply/edit-supply.component';
-import { NewSupplyComponent } from './pages/admin/new-supply/new-supply.component';
 
 
 @NgModule({
@@ -141,17 +133,9 @@ import { NewSupplyComponent } from './pages/admin/new-supply/new-supply.componen
     CustomersComponent,
     SuppliesComponent,
     ProductDetailsComponent,
-    NewProductComponent,
-    EditProductComponent,
-    EditUserComponent,
-    NewUserComponent,
     OrdersComponent,
     BuysComponent,
     SupliersComponent,
-    NewSuplierComponent,
-    EditSuplierComponent,
-    EditSupplyComponent,
-    NewSupplyComponent
   ],
   imports: [
     BrowserModule,

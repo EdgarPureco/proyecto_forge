@@ -22,72 +22,28 @@ export class NavbarAdminComponent {
         this.items = [
             {
                 label: 'Dashboard',
-                icon: 'pi pi-fw pi-chart-bar'
+                icon: 'pi pi-fw pi-chart-bar',
+                routerLink: '/admin/dashboard'
             },
             {
                 label: 'Products',
                 icon: 'pi pi-fw pi-box',
-                items: [
-                    {
-                        label: 'See All',
-                        icon: 'pi pi-fw pi-eye',
-                        routerLink: '/admin/products'
-                    },
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: '/admin/new-product'
-                    },
-                ]
+                routerLink: '/admin/products'
             },
             {
                 label: 'Supplies',
                 icon: 'pi pi-fw pi-list',
-                items: [
-                    {
-                        label: 'See All',
-                        icon: 'pi pi-fw pi-eye',
-                        routerLink: '/admin/supplies'
-                    },
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: '/admin/new-supply'
-                    },
-                    {
-                        label: 'Suppliers',
-                        icon: 'pi pi-fw pi-box',
-                        items: [
-                            {
-                                label: 'See All',
-                                icon: 'pi pi-fw pi-eye',
-                                routerLink: '/admin/suppliers'
-                            },
-                            {
-                                label: 'New',
-                                icon: 'pi pi-fw pi-plus',
-                                routerLink: '/admin/new-supplier'
-                            },
-                        ]
-                    },
-                ]
+                routerLink: '/admin/supplies',
             },
-
+            {
+                label: 'Suppliers',
+                icon: 'pi pi-fw pi-box',
+                routerLink: '/admin/suppliers'
+            },
             {
                 label: 'Users',
                 icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'See All',
-                        icon: 'pi pi-fw pi-eye',
-                        routerLink: '/admin/users'
-                    },
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-user-plus',
-                        routerLink: '/admin/new-user'
-                    },
-                ]
+                routerLink: '/admin/users'
             },
             {
                 label: 'Customers',

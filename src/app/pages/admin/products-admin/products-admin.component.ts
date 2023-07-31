@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from 'src/app/models/product';
-import { ProductService } from 'src/app/services/productservices';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-products-admin',
-  templateUrl: './products-admin.component.html',
-  styleUrls: ['./products-admin.component.css'],
-  providers: [MessageService, ConfirmationService]
+    selector: 'app-products-admin',
+    templateUrl: './products-admin.component.html',
+    styleUrls: ['./products-admin.component.css'],
+    providers: [MessageService, ConfirmationService]
 })
-export class ProductsAdminComponent  implements OnInit{
-  Delete = 'Delete'
-  productDialog: boolean = false;
+export class ProductsAdminComponent implements OnInit {
+    Delete = 'Delete'
+    productDialog: boolean = false;
 
     products!: Product[];
 
@@ -23,10 +23,18 @@ export class ProductsAdminComponent  implements OnInit{
 
     statuses!: any[];
 
-    constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
+    constructor(
+        private apiService: ApiService,
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService) { }
 
     ngOnInit() {
-        this.productService.getProducts().then((data) => (this.products = data)); 
+        this.apiService.getProducts().subscribe(
+            (response) => { this.products = response; console.log(response); },
+            (e) => {
+                console.error(e);
+            }
+        );
     }
 
     openNew() {
@@ -48,8 +56,16 @@ export class ProductsAdminComponent  implements OnInit{
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.products = this.products.filter((val) => val.id !== product.id);
+                product.id ? 
+                this.apiService.deleteProduct(product.id).subscribe(
+                    ()=>this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 }),
+                    (e)=>{
+                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Deleted', life: 3000 })
+                    }
+                    ) 
+                    : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product Not Deleted', life: 3000 })
+                    
                 this.product = {};
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
             }
         });
     }
@@ -61,21 +77,36 @@ export class ProductsAdminComponent  implements OnInit{
 
     saveProduct() {
         this.submitted = true;
-
         if (this.product.name?.trim()) {
             if (this.product.id) {
                 this.products[this.findIndexById(this.product.id)] = this.product;
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+                this.apiService.insertProduct(this.product).subscribe(
+                    ()=>{
+                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 })
+                    },
+                    (e)=>{
+                        console.log(e);
+                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Updated', life: 3000 })
+                    }
+                    );
             } else {
-                this.product.id = this.createId();
-                this.product.image = 'product-placeholder.svg';
-                this.products.push(this.product);
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+                this.product.image = 'null';
+                this.apiService.insertProduct(this.product).subscribe(
+                    ()=>{
+                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Added', life: 3000 }),
+                    this.products.push(this.product)
+                    },
+                    (e)=>{
+                        console.log(e);
+                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Added', life: 3000 })
+                    }
+                    );
             }
 
             this.products = [...this.products];
             this.productDialog = false;
             this.product = {};
+
         }
     }
 
@@ -91,30 +122,19 @@ export class ProductsAdminComponent  implements OnInit{
         return index;
     }
 
-    createId(): string {
-        let id = '';
-        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (var i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
-    }
-
     getSeverity(product: Product) {
-      console.log(product.inventoryStatus);
-      
-      switch (product.inventoryStatus) {
-        case 'INSTOCK':
-          return 'success';
-  
-        case 'LOWSTOCK':
-          return 'warning';
-  
-        case 'OUTOFSTOCK':
-          return 'danger';
-  
-        default:
-          return 'OUTOFSTOCK';
-      }
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warning';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return 'OUTOFSTOCK';
+        }
     };
 }

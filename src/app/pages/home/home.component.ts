@@ -24,12 +24,19 @@ export class HomeComponent {
   constructor(public apiService: ApiService) { }
 
   ngOnInit() {
+
     this.apiService.getProducts().subscribe(
-      (response) => { this.products = response.results; console.log(response.results); },
+      (response) => { this.products = response; console.log(response); },
       (e) => {
         console.error(e);
       }
     );
+    // this.apiService.getProduct('TZy1m').subscribe(
+    //   (response) => { this.products = response.results; console.log(response.results); },
+    //   (e) => {
+    //     console.error(e);
+    //   }
+    // );
     this.sortOptions = [
       { label: 'Price High to Low', value: '!price' },
       { label: 'Price Low to High', value: 'price' }

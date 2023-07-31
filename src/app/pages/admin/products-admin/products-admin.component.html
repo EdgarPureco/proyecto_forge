@@ -73,33 +73,24 @@
                     cols="20"></textarea>
             </div>
 
-            <div class="field">
-                <label for="inventoryStatus">Inventory Status</label>
-                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
-            </div>
 
             <div class="field">
                 <label class="mb-3">Category</label>
                 <div class="formgrid grid">
                     <div class="field-radiobutton col-6">
-                        <p-radioButton id="category1" name="category" value="Accessories"
+                        <p-radioButton id="category1" name="category" value="Window Frames"
                             [(ngModel)]="product.category"></p-radioButton>
-                        <label for="category1">Accessories</label>
+                        <label for="category1">Window Frames</label>
                     </div>
                     <div class="field-radiobutton col-6">
-                        <p-radioButton id="category2" name="category" value="Clothing"
+                        <p-radioButton id="category2" name="category" value="Door Frames"
                             [(ngModel)]="product.category"></p-radioButton>
-                        <label for="category2">Clothing</label>
+                        <label for="category2">Door Frames</label>
                     </div>
                     <div class="field-radiobutton col-6">
-                        <p-radioButton id="category3" name="category" value="Electronics"
+                        <p-radioButton id="category3" name="category" value="Pots"
                             [(ngModel)]="product.category"></p-radioButton>
-                        <label for="category3">Electronics</label>
-                    </div>
-                    <div class="field-radiobutton col-6">
-                        <p-radioButton id="category4" name="category" value="Fitness"
-                            [(ngModel)]="product.category"></p-radioButton>
-                        <label for="category4">Fitness</label>
+                        <label for="category3">Pots</label>
                     </div>
                 </div>
             </div>
@@ -109,10 +100,6 @@
                     <label for="price">Price</label>
                     <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD"
                         locale="en-US"></p-inputNumber>
-                </div>
-                <div class="field col">
-                    <label for="quantity">Quantity</label>
-                    <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
                 </div>
             </div>
         </ng-template>
