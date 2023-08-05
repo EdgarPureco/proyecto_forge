@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from 'src/app/models/product';
 import { ApiService } from 'src/app/services/api.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
 
 @Component({
     selector: 'app-products-admin',
@@ -26,11 +32,21 @@ export class ProductsAdminComponent implements OnInit {
     constructor(
         private apiService: ApiService,
         private messageService: MessageService,
-        private confirmationService: ConfirmationService) { }
+        private confirmationService: ConfirmationService,
+        private sanitizer: DomSanitizer) { }
 
     ngOnInit() {
         this.apiService.getProducts().subscribe(
-            (response) => { this.products = response; console.log(response); },
+            (response) => { 
+                
+                this.products = response; 
+                this.products.forEach(element => {
+                    const base64String = element.image 
+                    var url: SafeUrl;
+                    url = this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + base64String);
+                    element.image = url;
+                }); 
+            },
             (e) => {
                 console.error(e);
             }
@@ -56,18 +72,34 @@ export class ProductsAdminComponent implements OnInit {
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.products = this.products.filter((val) => val.id !== product.id);
-                product.id ? 
-                this.apiService.deleteProduct(product.id).subscribe(
-                    ()=>this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 }),
-                    (e)=>{
-                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Deleted', life: 3000 })
-                    }
-                    ) 
+                product.id ?
+                    this.apiService.deleteProduct(product.id).subscribe(
+                        () => this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 }),
+                        (e) => {
+                            this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Deleted', life: 3000 })
+                        }
+                    )
                     : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product Not Deleted', life: 3000 })
-                    
+
                 this.product = {};
             }
         });
+    }
+
+    onUpload(event: UploadEvent) {
+        for (let file of event.files) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                if (reader.result) {
+                    const base64Value = reader.result.toString().split(",")[1];
+                    this.product.image = base64Value
+                }
+            };
+            reader.readAsDataURL(file);
+
+        }
+
+        this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
     }
 
     hideDialog() {
@@ -81,26 +113,25 @@ export class ProductsAdminComponent implements OnInit {
             if (this.product.id) {
                 this.products[this.findIndexById(this.product.id)] = this.product;
                 this.apiService.insertProduct(this.product).subscribe(
-                    ()=>{
-                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 })
+                    () => {
+                        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 })
                     },
-                    (e)=>{
+                    (e) => {
                         console.log(e);
                         this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Updated', life: 3000 })
                     }
-                    );
+                );
             } else {
-                this.product.image = 'null';
+                this.add()
                 this.apiService.insertProduct(this.product).subscribe(
-                    ()=>{
-                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Added', life: 3000 }),
-                    this.products.push(this.product)
+                    () => {
+                        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Added', life: 3000 })
                     },
-                    (e)=>{
+                    (e) => {
                         console.log(e);
                         this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Added', life: 3000 })
                     }
-                    );
+                );
             }
 
             this.products = [...this.products];
@@ -108,6 +139,10 @@ export class ProductsAdminComponent implements OnInit {
             this.product = {};
 
         }
+    }
+
+    add(){
+        this.products.push(this.product)
     }
 
     findIndexById(id: string): number {

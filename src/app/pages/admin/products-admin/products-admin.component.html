@@ -35,7 +35,7 @@
             <ng-template pTemplate="body" let-product>
                 <tr>
                     <td>{{ product.name }}</td>
-                    <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                    <td><img [src]="product.image"
                             [alt]="product.name" width="50" class="shadow-4" /></td>
                     <td>{{ product.price | currency: 'USD' }}</td>
                     <td>{{ product.category }}</td>
@@ -60,8 +60,11 @@
     <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
         styleClass="p-fluid">
         <ng-template pTemplate="content">
-            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image"
-                class="block m-auto pb-3" *ngIf="product.image" />
+            <div class="field">
+                <label for="demo[]">Image</label>
+                <p-fileUpload name="demo[]" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($any($event))" [multiple]="false" accept="image/*">
+                </p-fileUpload>
+            </div>
             <div class="field">
                 <label for="name">Name</label>
                 <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
@@ -98,7 +101,7 @@
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="price">Price</label>
-                    <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD"
+                    <p-inputNumber [showButtons]="true" placeholder="0" id="price" [(ngModel)]="product.price" mode="currency" currency="USD"
                         locale="en-US"></p-inputNumber>
                 </div>
             </div>

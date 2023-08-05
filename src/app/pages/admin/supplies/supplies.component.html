@@ -1,1 +1,116 @@
-<p>supplies works!</p>
+<app-navbar-admin></app-navbar-admin>
+
+
+<div class="container-fluid m-3">
+
+    <div class="card">
+        <p-toast></p-toast>
+        <p-toolbar styleClass="mb-4 gap-2">
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-primary mr-2"
+                    (click)="openNew()"></button>
+            </ng-template>
+
+
+        </p-toolbar>
+
+        <p-table #dt [value]="supplies" [rows]="10" [paginator]="true"
+            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+            [tableStyle]="{ 'min-width': '75rem' }" [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th>Image</th>
+                    <th pSortableColumn="cost">Price <p-sortIcon field="cost"></p-sortIcon></th>
+                    <th pSortableColumn="buy_unit" style="min-width:10rem">Buy Unit <p-sortIcon
+                            field="buy_unit"></p-sortIcon></th>
+                    <th pSortableColumn="use_unit" style="min-width:10rem">Use Unit <p-sortIcon
+                            field="use_unit"></p-sortIcon></th>
+                    <th pSortableColumn="equivalence" style="min-width:10rem">Equivalence <p-sortIcon
+                            field="equivalence"></p-sortIcon></th>
+                    <th pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon
+                            field="inventoryStatus"></p-sortIcon></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-supply>
+                <tr>
+                    <td>{{ supply.name }}</td>
+                    <td><img [src]="supply.image"
+                            [alt]="supply.name" width="50" class="shadow-4" /></td>
+                    <td>{{ supply.cost | currency: 'USD' }}</td>
+                    <td>{{ supply.buy_unit }}</td>
+                    <td>{{ supply.use_unit }}</td>
+                    <td>{{ supply.equivalence }}</td>
+                    <td>
+                        <p-tag [value]="supply.inventoryStatus"
+                            [severity]="getSeverity(supply)"></p-tag>
+                    </td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
+                            (click)="editSupply(supply)"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                            (click)="deleteSupply(supply)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">In total there are {{ supplies ?
+                    supplies.length : 0 }} supplies.</div>
+            </ng-template>
+        </p-table>
+    </div>
+    <p-dialog [(visible)]="supplyDialog" [style]="{ width: '450px' }" header="Supply Details" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+            <div class="field">
+                <label for="demo[]">Image</label>
+                <p-fileUpload name="demo[]" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($any($event))" [multiple]="false" accept="image/*">
+                </p-fileUpload>
+                <small class="p-error" *ngIf="submitted && !supply.image">Image is required.</small>
+            </div>
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" pInputText id="name" [(ngModel)]="supply.name" required autofocus />
+                <small class="p-error" *ngIf="submitted && !supply.name">Name is required.</small>
+                <small class="p-error" *ngIf="submitted && !supply.name && supply.name!.length>3">Image is required.</small>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="cost">Cost</label>
+                    <p-inputNumber [showButtons]="true" placeholder="0" id="cost" [(ngModel)]="supply.cost" mode="currency" currency="USD"
+                        locale="en-US" [min]="1"></p-inputNumber>
+                        <small class="p-error" *ngIf="submitted && !supply.image">Cost is required.</small>
+                </div>
+            </div>
+            <div class="field">
+                <label for="buy_unit">Buy Unit</label>
+                <input id="buy_unit" pInputText [(ngModel)]="supply.buy_unit" required >
+                <small class="p-error" *ngIf="submitted && !supply.buy_unit">Buy unit is required.</small>
+            </div>
+            <div class="field">
+                <label for="use_unit">Use Unit</label>
+                <input id="use_unit" pInputText [(ngModel)]="supply.use_unit" required >
+                <small class="p-error" *ngIf="submitted && !supply.use_unit">Use unit is required.</small>
+            </div>
+            <div class="field">
+                <label for="equivalence">Equivalence</label>
+                <p-inputNumber [showButtons]="true" placeholder="0" id="equivalence" [(ngModel)]="supply.equivalence" [min]="1" ></p-inputNumber>
+                <small class="p-error" *ngIf="submitted && !supply.equivalence">Equivalence is required.</small>
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                (click)="saveSupply()"></button>
+        </ng-template>
+    </p-dialog>
+
+    <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+</div>
