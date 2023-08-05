@@ -10,10 +10,12 @@ import { SupliersComponent } from './pages/admin/supliers/supliers.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { CustomersComponent } from './pages/admin/customers/customers.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { ProductsComponent } from './pages/products/products.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path:"home", component: HomeComponent},
+  {path:"products", component: ProductsComponent},
   {path:"login", component: LoginComponent},
   {path:"signup", component: SignupComponent},
   {path:"mycart", component: CartComponent},

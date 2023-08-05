@@ -22,19 +22,24 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.items = [
             {
+                label: 'Home',
+                icon: 'pi pi-fw pi-home',
+                routerLink: '/home'
+            },  
+            {
                 label: 'Show All',
                 icon: 'pi pi-fw pi-bars',
-                routerLink: 'home'
+                routerLink: '/products'
             },  
             {
                 label: 'Window Frames',
                 icon: 'pi pi-fw pi-microsoft',
-                routerLink: 'home'
+                routerLink: '/home'
             },
             {
                 label: 'Door Frames',
                 icon: 'pi pi-fw pi-tablet',
-                routerLink: 'home'
+                routerLink: '/home'
             },
             {
                 label: 'Pots',
