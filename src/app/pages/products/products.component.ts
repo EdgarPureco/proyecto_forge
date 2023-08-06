@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { ApiService } from '../../services/api.service';
 import { SelectItem } from 'primeng/api';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-products',
@@ -10,9 +11,7 @@ import { SelectItem } from 'primeng/api';
 })
 
 export class ProductsComponent {
-  products?: any = null
-
-  layout: string = 'list' as '"list" | "grid"';
+  products!: Product[];
 
   sortOptions!: SelectItem[];
 
@@ -21,12 +20,20 @@ export class ProductsComponent {
   sortField!: string;
 
 
-  constructor(public apiService: ApiService) { }
+  constructor(public apiService: ApiService,private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
 
     this.apiService.getProducts().subscribe(
-      (response) => { this.products = response; console.log(response); },
+      (response) => { 
+        this.products = response;
+        this.products.forEach(element => {
+          const base64String = element.image 
+          var url: SafeUrl;
+          url = this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + base64String);
+          element.image = url;
+      }); 
+       },
       (e) => {
         console.error(e);
       }
