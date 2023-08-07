@@ -17,41 +17,41 @@ export class LoginComponent implements OnInit {
     public apiService: ApiService,
     public authService: AuthService,
     private messageService: MessageService
-  ) {
-
-  }
+  ) { }
   user: Login = {}
 
-  message: string = '';
+
   returnUrl: string = '';
 
   submitted = false;
 
   ngOnInit() {
-    this.returnUrl = '/admin/dashboard';
-    this.authService.logout();
+    
+    if(this.authService.isLoggedIn()==true){
+      this.router.navigate(['/home']);
+    }
   }
 
 
 
 
   toLogin() {
-
     if (this.user.email && this.user.password) {
       this.apiService.login(this.user).subscribe((response) => {
-        console.log(response);
-        if(response['authenticated']){
+        if (response['authenticated']) {
           localStorage.setItem('isLoggedIn', "true");
-          console.log("Login successful");
+          // localStorage.setItem('role', response['role']);
+          // localStorage.setItem('role', response['name']);
           localStorage.setItem('token', response['token']);
-          // this.router.navigate([this.returnUrl]);
-        }else{
-          this.messageService.add({  key: 'bc', severity: 'error', summary: 'Error', detail: response['message'] });
+          // response['role']=='customer'? this.returnUrl = '/home' : this.returnUrl = '/admin/dashboard';
+          this.router.navigate([this.returnUrl]);
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: response['message'], life: 2000 })
         }
       });
     }
     else {
-      this.messageService.add({  key: 'bc', severity: 'warn', summary: 'Attention', detail: 'Please fill all the champs'});
+      this.messageService.add({ severity: 'warn', summary: 'Attention', detail: 'Please fill all the champs', life: 2000 });
     }
   }
 

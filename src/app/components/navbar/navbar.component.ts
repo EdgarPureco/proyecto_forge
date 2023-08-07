@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,17 +10,17 @@ import { MenuItem } from 'primeng/api';
 })
 export class NavbarComponent implements OnInit {
     items: MenuItem[] | undefined;
+    isLoggedIn : boolean = false
 
-    constructor(private router: Router){}
+    constructor(private router: Router, private authService: AuthService){}
 
-    toLogin(){
-        this.router.navigate(['login']);
+    logout() {
+        this.authService.logout();
     }
-    
-    toSignup(){
-        this.router.navigate(['signup']);
-    }
+
     ngOnInit() {
+        localStorage.getItem('isLoggedIn') == 'true'? this.isLoggedIn = true : false;
+
         this.items = [
             {
                 label: 'Home',

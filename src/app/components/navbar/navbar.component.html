@@ -2,11 +2,21 @@
     <ng-template pTemplate="start" >
         <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" />
     </ng-template>
-    <ng-template pTemplate="end">
+    <ng-template pTemplate="end" *ngIf="!isLoggedIn" >
         <p-button styleClass="p-button-rounded p-button-raised p-button-sm p-button-secondary"
         class="m-3" label="Login" icon="pi pi-user" iconPos="right" 
         routerLink="/login"></p-button>
 
         <p-button routerLink="/signup" styleClass="p-button-rounded p-button-secondary p-button-sm p-button-raised p-button-text" label="SignUp" icon="pi pi-new" iconPos="right"></p-button>
+
+        <p-button *ngIf="isLoggedIn" styleClass="p-button-rounded p-button-raised p-button-sm"
+    class="m-3" label="Logout" icon="pi pi-sign-out" iconPos="right" 
+    (onClick)="logout()"></p-button>
+    </ng-template>
+    
+    <ng-template pTemplate="end" *ngIf="isLoggedIn" >
+        <p-button styleClass="p-button-rounded p-button-raised p-button-sm"
+    class="m-3" label="Logout" icon="pi pi-sign-out" iconPos="right" 
+    (onClick)="logout()"></p-button>
     </ng-template>
 </p-menubar>

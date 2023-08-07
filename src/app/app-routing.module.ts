@@ -12,20 +12,28 @@ import { CustomersComponent } from './pages/admin/customers/customers.component'
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './guards/auth.guard';  
+import { Roles } from './models/roles';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path:"home", component: HomeComponent},
-  {path:"products", component: ProductsComponent},
+  {path:"products", component: ProductsComponent, canActivate : [AuthGuard] },
   {path:"login", component: LoginComponent},
   {path:"signup", component: SignupComponent},
   {path:"mycart", component: CartComponent},
-  {path:"admin/dashboard", component: DashboardComponent, canActivate : [AuthGuard]},
-  {path:"admin/products", component: ProductsAdminComponent, canActivate : [AuthGuard]},
-  {path:"admin/supplies", component: SuppliesComponent, canActivate : [AuthGuard]},
-  {path:"admin/suppliers", component: SupliersComponent, canActivate : [AuthGuard]},
-  {path:"admin/users", component: UsersComponent, canActivate : [AuthGuard]},
-  {path:"admin/customers", component: CustomersComponent, canActivate : [AuthGuard]},
+
+  {path:"admin/dashboard", component: DashboardComponent, canActivate : [AuthGuard],
+        data: { roles: [Roles.Admin]}},
+  {path:"admin/products", component: ProductsAdminComponent, canActivate : [AuthGuard],
+        data: { roles: [Roles.Admin]}},
+  {path:"admin/supplies", component: SuppliesComponent, canActivate : [AuthGuard],
+        data: { roles: [Roles.Admin]}},
+  {path:"admin/suppliers", component: SupliersComponent, canActivate : [AuthGuard],
+        data: { roles: [Roles.Admin]}},
+  {path:"admin/users", component: UsersComponent, canActivate : [AuthGuard],
+        data: { roles: [Roles.Admin]}},
+  {path:"admin/customers", component: CustomersComponent, canActivate : [AuthGuard],
+        data: { roles: [Roles.Admin]}},
 ];
 
 @NgModule({
