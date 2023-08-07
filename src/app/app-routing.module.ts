@@ -11,6 +11,7 @@ import { UsersComponent } from './pages/admin/users/users.component';
 import { CustomersComponent } from './pages/admin/customers/customers.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductsComponent } from './pages/products/products.component';
+import { AuthGuard } from './guards/auth.guard';  
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -19,12 +20,12 @@ const routes: Routes = [
   {path:"login", component: LoginComponent},
   {path:"signup", component: SignupComponent},
   {path:"mycart", component: CartComponent},
-  {path:"admin/dashboard", component: DashboardComponent},
-  {path:"admin/products", component: ProductsAdminComponent},
-  {path:"admin/supplies", component: SuppliesComponent},
-  {path:"admin/suppliers", component: SupliersComponent},
-  {path:"admin/users", component: UsersComponent},
-  {path:"admin/customers", component: CustomersComponent},
+  {path:"admin/dashboard", component: DashboardComponent, canActivate : [AuthGuard]},
+  {path:"admin/products", component: ProductsAdminComponent, canActivate : [AuthGuard]},
+  {path:"admin/supplies", component: SuppliesComponent, canActivate : [AuthGuard]},
+  {path:"admin/suppliers", component: SupliersComponent, canActivate : [AuthGuard]},
+  {path:"admin/users", component: UsersComponent, canActivate : [AuthGuard]},
+  {path:"admin/customers", component: CustomersComponent, canActivate : [AuthGuard]},
 ];
 
 @NgModule({

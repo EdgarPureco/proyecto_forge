@@ -11,6 +11,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { AuthGuard } from './guards/auth.guard'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';  
 
 // Import PrimeNG modules
 import { AccordionModule } from 'primeng/accordion';
@@ -145,6 +147,8 @@ import { ProductsComponent } from './pages/products/products.component';
     BrowserAnimationsModule,
     ApiModule,
     HttpClientModule,
+    FormsModule,    
+   ReactiveFormsModule,
 
     // PrimeNg
     AccordionModule,
@@ -234,7 +238,7 @@ import { ProductsComponent } from './pages/products/products.component';
     BlockUIModule,
     ProgressSpinnerModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
