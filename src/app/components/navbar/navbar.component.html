@@ -5,8 +5,8 @@
     <ng-template pTemplate="end">
         <p-button styleClass="p-button-rounded p-button-raised p-button-sm p-button-secondary"
         class="m-3" label="Login" icon="pi pi-user" iconPos="right" 
-        (onClick)="toLogin()"></p-button>
+        routerLink="/login"></p-button>
 
-        <p-button (onClick)="toSignup()" styleClass="p-button-rounded p-button-secondary p-button-sm p-button-raised p-button-text" label="SignUp" icon="pi pi-new" iconPos="right"></p-button>
+        <p-button routerLink="/signup" styleClass="p-button-rounded p-button-secondary p-button-sm p-button-raised p-button-text" label="SignUp" icon="pi pi-new" iconPos="right"></p-button>
     </ng-template>
 </p-menubar>

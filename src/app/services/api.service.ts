@@ -3,6 +3,7 @@ import { Product } from '../models/product';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Supply } from '../models/supply';
+import { Login } from '../models/login';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,13 @@ export class ApiService {
   private baseUrl = 'api/';
 
   constructor(public http: HttpClient){}
+
+  // ========================= LOGIN & SIGNUP =========================================
+  public login(user: Login):Observable<any> {
+    const headers = { 'content-type': 'application/json'}  
+    const body=JSON.stringify(user);
+    return this.http.post<Product>(this.baseUrl+'login/', body,{'headers':headers})
+  }
 
   // ========================= PRODUCTS =========================================
   public getProducts():Observable<any> {
