@@ -10,11 +10,10 @@
                 <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-primary mr-2"
                     (click)="openNew()"></button>
             </ng-template>
-
-
+            <h1>Products</h1>
         </p-toolbar>
 
-        <p-table #dt [value]="products" [rows]="10" [paginator]="true"
+        <p-table #dt [value]="products" [rows]="10" [paginator]="true" [resizableColumns]="true"
             [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
             [tableStyle]="{ 'min-width': '75rem' }" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -22,14 +21,15 @@
 
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th>Image</th>
-                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                    <th pSortableColumn="category" style="min-width:10rem">Category <p-sortIcon
+                    <th pResizableColumn pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pResizableColumn >Image</th>
+                    <th pResizableColumn pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pResizableColumn pSortableColumn="category" style="min-width:10rem">Category <p-sortIcon
                             field="category"></p-sortIcon></th>
-                    <th pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon
+                    <th pResizableColumn pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon
                             field="inventoryStatus"></p-sortIcon></th>
-                    <th></th>
+                    <th pResizableColumn >Product Options</th>
+                    <th pResizableColumn >Product Supplies</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
@@ -49,6 +49,12 @@
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
                             (click)="deleteProduct(product)"></button>
                     </td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary"
+                            (click)="addSupplies(product)"></button>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
+                            (click)="editSupplies(product)"></button>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">
@@ -62,7 +68,7 @@
         <ng-template pTemplate="content">
             <div class="field">
                 <label for="demo[]">Image</label>
-                <p-fileUpload name="demo[]" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($any($event))" [multiple]="false" accept="image/*">
+                <p-fileUpload name="demo[]" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($any($event))" [multiple]="false" accept="image/png">
                 </p-fileUpload>
             </div>
             <div class="field">
@@ -114,6 +120,110 @@
                 (click)="saveProduct()"></button>
         </ng-template>
     </p-dialog>
+    
+
+    <!--  ======================================= ADD Supplies ============================================================== -->
+    <p-dialog [(visible)]="addSuppliesDialog" [maximizable]="true" appendTo="body" [resizable]="true" 
+    [style]="{ width: '75vw' }" header="Add Supplies" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+
+            <div class="card">
+                <p-table [scrollable]="true" [resizableColumns]="true" scrollHeight="flex" [value]="otherSupplies" [(selection)]="selectedSupplies" dataKey="id"
+                    [tableStyle]="{'min-width': '50rem'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 4rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                            <td>Id</td>
+                            <th pResizableColumn >Name</th>
+                            <th pResizableColumn >Cost</th>
+                            <th pResizableColumn >Buy Unit</th>
+                            <th pResizableColumn >Use Unit</th>
+                            <th pResizableColumn >Equivalence</th>
+                            <th pResizableColumn >Quantity</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-supply>
+                        <tr>
+                            <td>
+                                <p-tableCheckbox [value]="supply"></p-tableCheckbox>
+                            </td>
+                            <td>{{ supply.id }}</td>
+                            <td>{{ supply.name }}</td>
+                            <td>{{ supply.cost | currency: 'USD' }}</td>
+                            <td>{{ supply.buyUnit }}</td>
+                            <td>{{ supply.useUnit }}</td>
+                            <td>{{ supply.equivalence }}</td>
+                            <td><p-inputNumber [min]="1" [(ngModel)]="otherSupplies[findIndexAdd(supply.id)].quantity" [showButtons]="true" inputId="minmax-buttons" > </p-inputNumber></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                (click)="saveSupplies()"></button>
+        </ng-template>
+    </p-dialog>
+
+
+    <!--  ======================================= EDIT Supplies ============================================================== -->
+
+    <p-dialog [(visible)]="editSuppliesDialog" [maximizable]="true" appendTo="body" [resizable]="true" 
+     [style]="{ width: '75vw' }" header="Edit Supplies" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+
+            <div class="card">
+                <p-table [scrollable]="true" [resizableColumns]="true" scrollHeight="flex" [value]="productSupplies" [(selection)]="selectedSupplies" dataKey="id"
+                    [tableStyle]="{'min-width': '50rem'}">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 4rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                            <th pResizableColumn >Id</th>
+                            <th pResizableColumn >Name</th>
+                            <th pResizableColumn >Cost</th>
+                            <th pResizableColumn >Buy Unit</th>
+                            <th pResizableColumn >Use Unit</th>
+                            <th pResizableColumn >Equivalence</th>
+                            <th pResizableColumn >Quantity</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-supply>
+                        <tr>
+                            <td>
+                                <p-tableCheckbox [value]="supply"></p-tableCheckbox>
+                            </td>
+                            <td>{{ supply.id }}</td>
+                            <td>{{ supply.name }}</td>
+                            <td>{{ supply.cost | currency: 'USD' }}</td>
+                            <td>{{ supply.buyUnit }}</td>
+                            <td>{{ supply.useUnit }}</td>
+                            <td>{{ supply.equivalence }}</td>
+                            <td><p-inputNumber [min]="1" [(ngModel)]="productSupplies[findIndexEdit(supply.id)].quantity" [showButtons]="true" inputId="minmax-buttons" > </p-inputNumber></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                (click)="saveSupplies()"></button>
+        </ng-template>
+    </p-dialog>
+   
 
     <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 </div>
