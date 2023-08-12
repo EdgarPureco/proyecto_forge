@@ -10,30 +10,29 @@
                 <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-primary mr-2"
                     (click)="openNew()"></button>
             </ng-template>
-
-
+            <h1>Supplies</h1>
         </p-toolbar>
 
-        <p-table #dt [value]="supplies" [rows]="10" [paginator]="true"
-            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+        <p-table #dt [value]="supplies" [rows]="10" [paginator]="true" [resizableColumns]="true"
+            [globalFilterFields]="['name', 'cost', 'buyUnit', 'useUnit', 'equivalence', 'status']"
             [tableStyle]="{ 'min-width': '75rem' }" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [showCurrentPageReport]="true">
 
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th>Image</th>
-                    <th pSortableColumn="cost">Price <p-sortIcon field="cost"></p-sortIcon></th>
-                    <th pSortableColumn="buy_unit" style="min-width:10rem">Buy Unit <p-sortIcon
-                            field="buy_unit"></p-sortIcon></th>
-                    <th pSortableColumn="use_unit" style="min-width:10rem">Use Unit <p-sortIcon
-                            field="use_unit"></p-sortIcon></th>
-                    <th pSortableColumn="equivalence" style="min-width:10rem">Equivalence <p-sortIcon
+                    <th pResizableColumn pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pResizableColumn>Image</th>
+                    <th pResizableColumn pSortableColumn="cost">Price <p-sortIcon field="cost"></p-sortIcon></th>
+                    <th pResizableColumn pSortableColumn="buyUnit" style="min-width:10rem">Buy Unit <p-sortIcon
+                            field="buyUnit"></p-sortIcon></th>
+                    <th pResizableColumn pSortableColumn="useUnit" style="min-width:10rem">Use Unit <p-sortIcon
+                            field="useUnit"></p-sortIcon></th>
+                    <th pResizableColumn pSortableColumn="equivalence" style="min-width:10rem">Equivalence <p-sortIcon
                             field="equivalence"></p-sortIcon></th>
-                    <th pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon
+                    <th pResizableColumn pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon
                             field="inventoryStatus"></p-sortIcon></th>
-                    <th></th>
+                    <th pResizableColumn></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-supply>
@@ -42,8 +41,8 @@
                     <td><img [src]="supply.image"
                             [alt]="supply.name" width="50" class="shadow-4" /></td>
                     <td>{{ supply.cost | currency: 'USD' }}</td>
-                    <td>{{ supply.buy_unit }}</td>
-                    <td>{{ supply.use_unit }}</td>
+                    <td>{{ supply.buyUnit }}</td>
+                    <td>{{ supply.useUnit }}</td>
                     <td>{{ supply.equivalence }}</td>
                     <td>
                         <p-tag [value]="supply.inventoryStatus"
@@ -68,7 +67,7 @@
         <ng-template pTemplate="content">
             <div class="field">
                 <label for="demo[]">Image</label>
-                <p-fileUpload name="demo[]" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($any($event))" [multiple]="false" accept="image/*">
+                <p-fileUpload name="demo[]" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($any($event))" [multiple]="false" accept="image/png">
                 </p-fileUpload>
                 <small class="p-error" *ngIf="submitted && !supply.image">Image is required.</small>
             </div>
@@ -76,7 +75,7 @@
                 <label for="name">Name</label>
                 <input type="text" pInputText id="name" [(ngModel)]="supply.name" required autofocus />
                 <small class="p-error" *ngIf="submitted && !supply.name">Name is required.</small>
-                <small class="p-error" *ngIf="submitted && !supply.name && supply.name!.length>3">Image is required.</small>
+                <small class="p-error" *ngIf="submitted && !supply.name && supply.name!.length>3">Name has to be at least 3 characters long.</small>
             </div>
             <div class="formgrid grid">
                 <div class="field col">
@@ -87,14 +86,14 @@
                 </div>
             </div>
             <div class="field">
-                <label for="buy_unit">Buy Unit</label>
-                <input id="buy_unit" pInputText [(ngModel)]="supply.buy_unit" required >
-                <small class="p-error" *ngIf="submitted && !supply.buy_unit">Buy unit is required.</small>
+                <label for="buyUnit">Buy Unit</label>
+                <input id="buyUnit" pInputText [(ngModel)]="supply.buyUnit" required >
+                <small class="p-error" *ngIf="submitted && !supply.buyUnit">Buy unit is required.</small>
             </div>
             <div class="field">
-                <label for="use_unit">Use Unit</label>
-                <input id="use_unit" pInputText [(ngModel)]="supply.use_unit" required >
-                <small class="p-error" *ngIf="submitted && !supply.use_unit">Use unit is required.</small>
+                <label for="useUnit">Use Unit</label>
+                <input id="useUnit" pInputText [(ngModel)]="supply.useUnit" required >
+                <small class="p-error" *ngIf="submitted && !supply.useUnit">Use unit is required.</small>
             </div>
             <div class="field">
                 <label for="equivalence">Equivalence</label>

@@ -3,9 +3,10 @@ export interface Supply {
     id?: string;
     name?: string;
     cost?: number;
-    buy_unit?: string;
-    use_unit?: string;
+    buyUnit?: string;
+    useUnit?: string;
     equivalence?: number;
     image?: any;
+    quantity?: number;
     inventoryStatus?: string;
 }

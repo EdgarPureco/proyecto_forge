@@ -60,6 +60,8 @@ export class SuppliesComponent implements OnInit {
 
 
     editSupply(supply: Supply) {
+        console.log(supply);
+        
         this.supply = { ...supply };
         this.supplyDialog = true;
     }
@@ -111,7 +113,7 @@ export class SuppliesComponent implements OnInit {
         if (this.supply.name?.trim()) {
             if (this.supply.id) {
                 this.supplies[this.findIndexById(this.supply.id)] = this.supply;
-                this.apiService.insertSupply(this.supply).subscribe(
+                this.apiService.updateSupply(this.supply.id,this.supply).subscribe(
                     () => {
                         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Supply Updated', life: 3000 })
                     },
@@ -142,7 +144,20 @@ export class SuppliesComponent implements OnInit {
     }
 
     add() {
-        this.supplies.push(this.supply)
+        var tmp = this.supply
+        tmp.image = this.toImage(tmp);
+        this.supplies.push(tmp)
+    }
+
+    toImage(object: Supply){
+        const base64String = object.image
+        var url: SafeUrl;
+        return url = this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + base64String);
+    }
+
+    toBase64(){
+        const base64Value = this.supply.image.toString().split(",")[1];
+        this.supply.image = base64Value
     }
     
     findIndexById(id: string): number {

@@ -10,8 +10,8 @@ export class AuthService {
   logout(): void {
     localStorage.setItem('isLoggedIn', 'false');
     localStorage.removeItem('token');
-    // localStorage.removeItem('role');
-    // localStorage.removeItem('name');
+    localStorage.removeItem('role');
+    localStorage.removeItem('name');
     this.router.navigate(['/login']);
   }
 

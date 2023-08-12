@@ -28,22 +28,28 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     
     if(this.authService.isLoggedIn()==true){
-      this.router.navigate(['/home']);
+      var tmp = localStorage.getItem('role');
+      if(tmp!=null){
+        tmp.includes('admin')? this.router.navigate(['/admin/dashboard']) :
+        this.router.navigate(['/home']);
+      } 
     }
   }
-
-
 
 
   toLogin() {
     if (this.user.email && this.user.password) {
       this.apiService.login(this.user).subscribe((response) => {
         if (response['authenticated']) {
+
           localStorage.setItem('isLoggedIn', "true");
-          // localStorage.setItem('role', response['role']);
-          // localStorage.setItem('role', response['name']);
+          localStorage.setItem('role', response['role']);
+          localStorage.setItem('name', response['name']);
           localStorage.setItem('token', response['token']);
-          // response['role']=='customer'? this.returnUrl = '/home' : this.returnUrl = '/admin/dashboard';
+
+          localStorage.getItem('role')?.includes('customer') 
+            ? this.returnUrl = '/home' : this.returnUrl = '/admin/dashboard';
+            
           this.router.navigate([this.returnUrl]);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response['message'], life: 2000 })

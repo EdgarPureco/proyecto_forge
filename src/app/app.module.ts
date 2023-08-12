@@ -114,7 +114,7 @@ import { SuppliesComponent } from './pages/admin/supplies/supplies.component';
 import { ProductDetailsComponent } from './pages/admin/product-details/product-details.component';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
 import { BuysComponent } from './pages/admin/buys/buys.component';
-import { SupliersComponent } from './pages/admin/supliers/supliers.component';
+import { SuppliersComponent } from './pages/admin/suppliers/suppliers.component';
 import { ProductsComponent } from './pages/products/products.component';
 
 
@@ -138,7 +138,7 @@ import { ProductsComponent } from './pages/products/products.component';
     ProductDetailsComponent,
     OrdersComponent,
     BuysComponent,
-    SupliersComponent,
+    SuppliersComponent,
     ProductsComponent,
   ],
   imports: [

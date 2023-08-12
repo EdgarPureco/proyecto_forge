@@ -16,19 +16,19 @@ export class AuthGuard implements CanActivate {
    
    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
       if (this.isLoggedIn()) {
-         // var role = localStorage.getItem('role');
-         // if (role) {
+         var role = localStorage.getItem('role');
+         if (role) {
             // ? check if route is restricted by role
-            // const { roles } = route.data;
-            // if (roles && !roles.includes(role)) {
+            const { roles } = route.data;
+            if (roles && !roles.includes(role)) {
                // ? role not authorized so redirect to home page
-            //    this.router.navigate(['/login']);
-            //    return false;
-            // }
+               this.router.navigate(['/login']);
+               return false;
+            }
 
             // authorized so return true
             return true;
-         // }
+         }
       }
 
       // navigate to login page as user is not authenticated      

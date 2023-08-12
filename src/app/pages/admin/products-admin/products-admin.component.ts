@@ -3,6 +3,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from 'src/app/models/product';
 import { ApiService } from 'src/app/services/api.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ProductSupply } from 'src/app/models/productSupply';
+import { Supply } from 'src/app/models/supply';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -18,12 +20,21 @@ interface UploadEvent {
 export class ProductsAdminComponent implements OnInit {
     Delete = 'Delete'
     productDialog: boolean = false;
+    editSuppliesDialog: boolean = false;
+
+    addSuppliesDialog: boolean = false;
 
     products!: Product[];
 
     product!: Product;
 
-    selectedProducts!: Product[] | null;
+    productSupplies!: Supply[] ;
+
+    otherSupplies!: Supply[] ;
+
+    selectedSupplies!: Supply[];
+
+    sendSupplies!: ProductSupply[];
 
     submitted: boolean = false;
 
@@ -64,6 +75,7 @@ export class ProductsAdminComponent implements OnInit {
         this.product = { ...product };
         this.productDialog = true;
     }
+      
 
     deleteProduct(product: Product) {
         this.confirmationService.confirm({
@@ -112,7 +124,7 @@ export class ProductsAdminComponent implements OnInit {
         if (this.product.name?.trim()) {
             if (this.product.id) {
                 this.products[this.findIndexById(this.product.id)] = this.product;
-                this.apiService.insertProduct(this.product).subscribe(
+                this.apiService.updateProduct(this.product.id, this.product).subscribe(
                     () => {
                         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 })
                     },
@@ -141,6 +153,7 @@ export class ProductsAdminComponent implements OnInit {
         }
     }
 
+
     add(){
         this.products.push(this.product)
     }
@@ -156,6 +169,8 @@ export class ProductsAdminComponent implements OnInit {
 
         return index;
     }
+    
+    
 
     getSeverity(product: Product) {
         switch (product.inventoryStatus) {
@@ -172,4 +187,82 @@ export class ProductsAdminComponent implements OnInit {
                 return 'OUTOFSTOCK';
         }
     };
+
+    // ========================================================================================
+
+    
+    getProductSupplies(){
+        this.apiService.getProductSupplies(this.product.id!.toString()).subscribe(
+            (response) => { 
+                this.productSupplies = response['productSupplies']; 
+                this.otherSupplies = response['otherSupplies']; 
+                
+            },
+            (e) => {
+                console.error(e);
+            }
+        );
+    }
+
+    editSupplies(product: Product) {
+        this.product = { ...product };
+        this.getProductSupplies()
+        this.editSuppliesDialog = true;
+    }
+    
+    addSupplies(product: Product)  {
+        this.product = { ...product };
+        this.getProductSupplies()
+        this.addSuppliesDialog = true;
+
+    }
+
+    saveSupplies(){
+        this.submitted = true;
+        this.sendSupplies = []
+        this.selectedSupplies.forEach((item)=>{
+            var tmp: ProductSupply = {}
+            tmp.supplyId = item.id
+            tmp.quantity = item.quantity
+            this.sendSupplies.push(tmp)
+        });
+        this.apiService.saveProductSupplies(this.product.id!.toString(), this.sendSupplies).subscribe(
+            () => {
+                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Supplies Updated', life: 3000 })
+            },
+            (e) => {
+                console.log(e);
+                this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supplies Not Updated', life: 3000 })
+            }
+        );
+        
+        if(this.editSuppliesDialog)this.editSuppliesDialog=false
+        if(this.addSuppliesDialog)this.addSuppliesDialog=false
+        
+    }
+
+    findIndexEdit(id: string): number {
+        let index = -1;
+        for (let i = 0; i < this.productSupplies.length; i++) {
+            if (this.productSupplies[i].id === id) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+    
+    findIndexAdd(id: string): number {
+        let index = -1;
+        for (let i = 0; i < this.otherSupplies.length; i++) {
+            if (this.otherSupplies[i].id === id) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+        
 }
