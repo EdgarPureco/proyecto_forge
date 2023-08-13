@@ -26,6 +26,14 @@
                     <th pResizableColumn pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
                     <th pResizableColumn pSortableColumn="category" style="min-width:10rem">Category <p-sortIcon
                             field="category"></p-sortIcon></th>
+
+                    <th pResizableColumn pSortableColumn="width" style="min-width:10rem">Width <p-sortIcon
+                            field="width"></p-sortIcon></th>
+                    <th pResizableColumn pSortableColumn="length" style="min-width:10rem">Length <p-sortIcon
+                            field="length"></p-sortIcon></th>
+                    <th pResizableColumn pSortableColumn="height" style="min-width:10rem">Height <p-sortIcon
+                            field="height"></p-sortIcon></th>
+
                     <th pResizableColumn pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon
                             field="inventoryStatus"></p-sortIcon></th>
                     <th pResizableColumn >Product Options</th>
@@ -39,6 +47,9 @@
                             [alt]="product.name" width="50" class="shadow-4" /></td>
                     <td>{{ product.price | currency: 'USD' }}</td>
                     <td>{{ product.category }}</td>
+                    <td>{{ product.width }}</td>
+                    <td>{{ product.length }}</td>
+                    <td>{{ product.height }}</td>
                     <td>
                         <p-tag [value]="product.inventoryStatus"
                             [severity]="getSeverity(product)"></p-tag>
@@ -82,6 +93,21 @@
                     cols="20"></textarea>
             </div>
 
+            <div class="field">
+                <label for="width">Width</label>
+                <input type="text" pInputText id="width" [(ngModel)]="product.width" required autofocus />
+                <small class="p-error" *ngIf="submitted && !product.width">Width is required.</small>
+            </div>
+            <div class="field">
+                <label for="length">Length</label>
+                <input type="text" pInputText id="length" [(ngModel)]="product.length" required autofocus />
+                <small class="p-error" *ngIf="submitted && !product.length">Length is required.</small>
+            </div>
+            <div class="field">
+                <label for="height">Height</label>
+                <input type="text" pInputText id="height" [(ngModel)]="product.height" required autofocus />
+                <small class="p-error" *ngIf="submitted && !product.height">Height is required.</small>
+            </div>
 
             <div class="field">
                 <label class="mb-3">Category</label>

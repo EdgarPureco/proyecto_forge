@@ -52,7 +52,6 @@ export class UsersComponent {
   editUser(user: User) {
       this.user = { ...user };
       this.userDialog = true;
-      console.log(this.user);
       
   }
 
@@ -87,6 +86,7 @@ export class UsersComponent {
       this.submitted = true;
       if (this.user.email?.trim()) {
           if (this.user.id) {
+            this.setRole(this.user.roleId!);
               this.users[this.findIndexById(this.user.id)] = this.user;
               this.apiService.updateUser(this.user.id, this.user).subscribe(
                   () => {
@@ -119,6 +119,20 @@ export class UsersComponent {
 
   add(){
       this.users.push(this.user)
+  }
+
+  setRole(roleId: string){
+    switch (roleId) {
+        case '1':
+            this.user.role = 'admin'
+            break;
+        case '2':
+            this.user.role = 'seller'
+            break;
+        case '3':
+            this.user.role = 'stocker'
+            break;
+    }
   }
 
   findIndexById(id: string): number {

@@ -7,6 +7,9 @@ export interface Product {
     quantity?: number;
     inventoryStatus?: string;
     category?: string;
+    width?: string;
+    length?: string;
+    height?: string;
     image?: any;
     url?: string;
 }
