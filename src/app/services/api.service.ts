@@ -245,5 +245,33 @@ public saveOrder(id: string, card: any, items:any[]): Observable<any> {
   
 }
 
+public setDelivered(id: string, ): Observable<any> {
+  const  headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  } 
+  const body=JSON.stringify({"orderId": id});
+  return this.http.post<any[]>(this.baseUrl+'orders/markasdelivered/', body,{'headers':headers})
+  
+}
+
+public setReceived(id: string, ): Observable<any> {
+  const  headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  } 
+  const body=JSON.stringify({"orderId": id});
+  return this.http.post<any[]>(this.baseUrl+'orders/markasreceived/', body,{'headers':headers})
+  
+}
+public getOrders(): Observable<any> {
+  const  headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  } 
+  return this.http.get<any[]>(this.baseUrl+'orders/',{'headers':headers})
+  
+}
+
 
 }

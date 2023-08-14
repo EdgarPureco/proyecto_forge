@@ -47,9 +47,9 @@ export class NavbarAdminComponent {
                 routerLink: '/admin/users'
             },
             {
-                label: 'Customers',
-                icon: 'pi pi-fw pi-user',
-                routerLink: '/admin/customers'
+                label: 'Orders',
+                icon: 'pi pi-fw pi-dollar',
+                routerLink: '/admin/orders'
             },
 
         ];
