@@ -7,6 +7,7 @@ import { Login } from '../models/login';
 import { User } from '../models/user';
 import { Supplier } from '../models/supplier';
 import { ProductSupply } from '../models/productSupply';
+import { SignUp } from '../models/signup';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,13 @@ export class ApiService {
   public login(user: Login):Observable<any> {
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(user);
-    return this.http.post<Product>(this.baseUrl+'login/', body,{'headers':headers})
+    return this.http.post<any>(this.baseUrl+'login/', body,{'headers':headers})
+  }
+  
+  public signUp(user: SignUp):Observable<any> {
+    const headers = { 'content-type': 'application/json'}  
+    const body=JSON.stringify(user);
+    return this.http.post<any>(this.baseUrl+'customers/signup/', body,{'headers':headers})
   }
 
   // ========================= PRODUCTS =========================================

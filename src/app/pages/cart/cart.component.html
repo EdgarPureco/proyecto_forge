@@ -59,7 +59,7 @@
                 <div class="p-grid">
                   <div class="p-col-6">
                     <label for="cardNumber">Número de tarjeta</label>
-                    <input id="cardNumber" [min]="9" [max]="9" pKeyFilter="int" pInputText
+                    <input id="cardNumber" minlength="9" maxlength="9" pKeyFilter="int" pInputText
                       formControlName="cardNumber" />
                   </div>
                   <div class="p-col-6">
@@ -75,7 +75,7 @@
 
                   <div class="p-col-6">
                     <label for="cvv">CVV</label>
-                    <input id="cvv" pInputText formControlName="cvv" />
+                    <input minlength="3" maxlength="3" id="cvv" pInputText formControlName="cvv" />
                   </div>
                 </div>
                 <br>

@@ -1,6 +1,6 @@
-<!-- Section: Design Block -->
+
 <section class="background-radial-gradient overflow-hidden">
-  <p-toast></p-toast>
+
   <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
     <div class="row gx-lg-5 align-items-center mb-5">
       <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
@@ -9,8 +9,7 @@
           <span style="color: hsl(0, 100%, 64%)">for your home</span>
         </h1>
         <div class="col-md-6">
-          <div class="image_1"><img style="max-width: 75%;"
-              src="logo.png">
+          <div class="image_1"><img style="max-width: 75%;" src="assets/logo.png">
           </div>
         </div>
       </div>
@@ -21,64 +20,82 @@
 
         <div class="card bg-glass">
           <div class="card-body px-4 py-5 px-md-5">
-            <h1>Create account</h1>
-            <form>
-              <!-- Email input -->
-              <div class="form-outline mb-4">
-                <span class="p-float-label">
-                  <input p-inputtext="name" class="p-inputtext-lg" pInputText id="name" [(ngModel)]="name" />
-                  <label htmlFor="name">First Name</label>
-                </span>
-              </div>
-              <div class="form-outline mb-4">
-                <span class="p-float-label">
-                  <input class="p-inputtext-lg" p-inputtext="lastName" pInputText id="lastName"
-                    [(ngModel)]="lastName" />
-                  <label htmlFor="lastName">Last Name</label>
-                </span>
-              </div>
-              <div class="form-outline mb-4">
-                <span class="p-float-label">
-                  <input class="p-inputtext-lg" p-inputtext="email" pInputText id="email" [(ngModel)]="email" />
-                  <label htmlFor="email">Email</label>
-                </span>
-              </div>
+            <h1>Access to your account</h1>
+            <div class="form-outline mb-4" style="display: inline-block;">
+              <span style="display: inline-block;" class="p-float-label">
+                <input p-inputtext="names" class="p-inputtext-sm" pInputText id="name" [(ngModel)]="names" />
+                <label htmlFor="names">First Name</label>
+              </span>
+              <span style="display: inline-block; margin-left: 10px;" class="p-float-label">
+                <input class="p-inputtext-sm" p-inputtext="lastNames" pInputText id="lastName"
+                  [(ngModel)]="lastNames" />
+                <label htmlFor="lastNames">Last Name</label>
+              </span>
+            </div>
 
-              <!-- Password input -->
-              <div class="form-outline mb-4">
-                <span class="p-float-label">
-                  <p-password class="p-inputtext-lg" [(ngModel)]="password" [toggleMask]="true">
-                    <ng-template pTemplate="footer">
-                      <p-divider></p-divider>
-                      <p class="mt-2">Suggestions</p>
-                      <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                        <li>At least one lowercase</li>
-                        <li>At least one uppercase</li>
-                        <li>At least one numeric</li>
-                        <li>Minimum 8 characters</li>
-                      </ul>
-                    </ng-template>
-                  </p-password>
-                  <label for="password">Password</label>
-                </span>
+            <div class="form-outline mb-4">
+              <span style="display: inline-block;" class="p-float-label">
+                <input class="p-inputtext-sm" p-inputtext="address" pInputText id="lastName" [(ngModel)]="address" />
+                <label htmlFor="address">Address</label>
+              </span>
+              <span style="display: inline-block; margin-left: 10px;" class="p-float-label">
+                <input class="p-inputtext-sm" minlength="10" maxlength="10" p-inputtext="phone" pInputText id="lastName"
+                  [(ngModel)]="phone" />
+                <label htmlFor="phone">Phone</label>
+              </span>
+            </div>
+            <p-toast></p-toast>
 
-              </div>
 
-              <!-- Submit button -->
-              <button type="submit" class="btn btn-dark btn-block mb-4">
-                Sign up
-              </button>
+            <div class="form-outline mb-4">
+              <span class="p-float-label">
+                <input class="p-inputtext-lg" p-inputtext="email" pInputText id="email" [(ngModel)]="email" />
+                <label htmlFor="email">Email</label>
+              </span>
+            </div>
 
-              <!-- <div class="text-center text-lg-start mt-4 pt-2"> -->
+
+            <div class="form-outline mb-4">
+              <span class="p-float-label">
+                <p-password class="p-inputtext-lg" [(ngModel)]="password" [toggleMask]="true">
+                  <ng-template pTemplate="footer">
+                    <p-divider></p-divider>
+                    <p class="mt-2">Suggestions</p>
+                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                      <li>At least one lowercase</li>
+                      <li>At least one uppercase</li>
+                      <li>At least one numeric</li>
+                      <li>Minimum 8 characters</li>
+                    </ul>
+                  </ng-template>
+                </p-password>
+                <label for="password">Password</label>
+              </span>
+
+            </div>
+
+            <div class="form-outline mb-4">
+              <span class="p-float-label">
+                <p-password class="p-inputtext-lg" [(ngModel)]="confirmPassword" [toggleMask]="true">
+                </p-password>
+                <label for="password">Confirm Password</label>
+              </span>
+
+            </div>
+
+
+            <button type="submit" (click)="signUp()" class="btn btn-dark mb-4">
+              Sign Up
+            </button>
+
+            <div class="text-center text-lg-start mt-0 pt-2">
               <p class="small fw-bold mt-2 pt-1 mb-0">Already have an account? <a href="/login"
                   class="link-danger">Login</a></p>
-              <!-- </div> -->
-
-            </form>
+            </div>
+            <p-toast></p-toast>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- Section: Design Block -->
