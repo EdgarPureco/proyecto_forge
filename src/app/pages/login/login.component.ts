@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
         if (response['authenticated']) {
 
           localStorage.setItem('isLoggedIn', "true");
+          localStorage.setItem('id', response['id']);
           localStorage.setItem('role', response['role']);
           localStorage.setItem('name', response['name']);
           localStorage.setItem('token', response['token']);

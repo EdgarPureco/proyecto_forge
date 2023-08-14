@@ -63,12 +63,12 @@ export class SuppliersComponent implements OnInit {
               this.suppliers = this.suppliers.filter((val) => val.id !== supplier.id);
               supplier.id ?
                   this.apiService.deleteSupplier(supplier.id).subscribe(
-                      () => this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Supplier Deleted', life: 3000 }),
+                      () => this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supplier Eliminado', life: 3000 }),
                       (e) => {
-                          this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supplier Not Deleted', life: 3000 })
+                          this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supplier Not Eliminado', life: 3000 })
                       }
                   )
-                  : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Supplier Not Deleted', life: 3000 })
+                  : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Supplier Not Eliminado', life: 3000 })
 
               this.supplier = {};
           }
@@ -88,7 +88,7 @@ export class SuppliersComponent implements OnInit {
               this.suppliers[this.findIndexById(this.supplier.id)] = this.supplier;
               this.apiService.updateSupplier(this.supplier.id, this.supplier).subscribe(
                   () => {
-                      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Supplier Updated', life: 3000 })
+                      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supplier Updated', life: 3000 })
                   },
                   (e) => {
                       console.log(e);
@@ -99,7 +99,7 @@ export class SuppliersComponent implements OnInit {
               this.add()
               this.apiService.insertSupplier(this.supplier).subscribe(
                   () => {
-                      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Supplier Added', life: 3000 })
+                      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supplier Added', life: 3000 })
                   },
                   (e) => {
                       console.log(e);

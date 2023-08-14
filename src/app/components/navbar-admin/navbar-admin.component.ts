@@ -27,7 +27,7 @@ export class NavbarAdminComponent {
                 routerLink: '/admin/dashboard'
             },
             {
-                label: 'Products',
+                label: 'Productos',
                 icon: 'pi pi-fw pi-box',
                 routerLink: '/admin/products'
             },

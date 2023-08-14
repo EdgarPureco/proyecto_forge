@@ -21,7 +21,7 @@ const routes: Routes = [
   {path:"products", component: ProductsComponent, canActivate : [AuthGuard] },
   {path:"login", component: LoginComponent},
   {path:"signup", component: SignupComponent},
-  {path:"mycart", component: CartComponent},
+  {path:"cart", component: CartComponent, canActivate : [AuthGuard]},
 
   {path:"admin/dashboard", component: DashboardComponent, canActivate : [AuthGuard],
         data: { roles: [Roles.Admin, Roles.Seller, Roles.Stocker]}},

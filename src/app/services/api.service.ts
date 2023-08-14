@@ -229,4 +229,21 @@ export class ApiService {
     }
     return this.http.delete(this.baseUrl+'users/'+id, {'headers':headers});
 }
+
+
+
+
+   // ========================= CUSTOMERS =========================================
+
+public saveOrder(id: string, card: any, items:any[]): Observable<any> {
+  const  headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  } 
+  const body=JSON.stringify({"customerId": id, "card": card, "items": items});
+  return this.http.post<any[]>(this.baseUrl+'customers/buy/', body,{'headers':headers})
+  
+}
+
+
 }

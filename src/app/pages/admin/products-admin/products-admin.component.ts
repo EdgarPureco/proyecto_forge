@@ -86,12 +86,12 @@ export class ProductsAdminComponent implements OnInit {
                 this.products = this.products.filter((val) => val.id !== product.id);
                 product.id ?
                     this.apiService.deleteProduct(product.id).subscribe(
-                        () => this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 }),
+                        () => this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Producto Eliminado', life: 3000 }),
                         (e) => {
-                            this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Deleted', life: 3000 })
+                            this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Producto Not Eliminado', life: 3000 })
                         }
                     )
-                    : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product Not Deleted', life: 3000 })
+                    : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Producto Not Eliminado', life: 3000 })
 
                 this.product = {};
             }
@@ -126,22 +126,22 @@ export class ProductsAdminComponent implements OnInit {
                 this.products[this.findIndexById(this.product.id)] = this.product;
                 this.apiService.updateProduct(this.product.id, this.product).subscribe(
                     () => {
-                        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 })
+                        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Producto Updated', life: 3000 })
                     },
                     (e) => {
                         console.log(e);
-                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Updated', life: 3000 })
+                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Producto Not Updated', life: 3000 })
                     }
                 );
             } else {
                 this.add()
                 this.apiService.insertProduct(this.product).subscribe(
                     () => {
-                        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Added', life: 3000 })
+                        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Producto Added', life: 3000 })
                     },
                     (e) => {
                         console.log(e);
-                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Product Not Added', life: 3000 })
+                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Producto Not Added', life: 3000 })
                     }
                 );
             }
@@ -228,7 +228,7 @@ export class ProductsAdminComponent implements OnInit {
         });
         this.apiService.saveProductSupplies(this.product.id!.toString(), this.sendSupplies).subscribe(
             () => {
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Supplies Updated', life: 3000 })
+                this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supplies Updated', life: 3000 })
             },
             (e) => {
                 console.log(e);

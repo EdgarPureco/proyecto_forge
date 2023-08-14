@@ -64,12 +64,12 @@ export class UsersComponent {
               this.users = this.users.filter((val) => val.id !== user.id);
               user.id ?
                   this.apiService.deleteUser(user.id).subscribe(
-                      () => this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000 }),
+                      () => this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'User Eliminado', life: 3000 }),
                       (e) => {
-                          this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'User Not Deleted', life: 3000 })
+                          this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'User Not Eliminado', life: 3000 })
                       }
                   )
-                  : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User Not Deleted', life: 3000 })
+                  : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User Not Eliminado', life: 3000 })
 
               this.user = {};
           }
@@ -90,7 +90,7 @@ export class UsersComponent {
               this.users[this.findIndexById(this.user.id)] = this.user;
               this.apiService.updateUser(this.user.id, this.user).subscribe(
                   () => {
-                      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'User Updated', life: 3000 })
+                      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'User Updated', life: 3000 })
                   },
                   (e) => {
                       console.log(e);
@@ -101,7 +101,7 @@ export class UsersComponent {
               this.add()
               this.apiService.insertUser(this.user).subscribe(
                   () => {
-                      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'User Added', life: 3000 })
+                      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'User Added', life: 3000 })
                   },
                   (e) => {
                       console.log(e);
