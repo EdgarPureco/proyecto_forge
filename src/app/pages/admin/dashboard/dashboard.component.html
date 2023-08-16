@@ -7,19 +7,19 @@
         <p-tabPanel>
             <ng-template pTemplate="header">
                 <i style="margin-right: 5px;" class="pi pi-chart-line"></i>
-                <span>Sells</span>
+                <span>Inventario</span>
             </ng-template>
             <div class="card mt-3">
-                <h4 class="text-center text-capitalize">Sells of week</h4>
-                <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+                <h4 class="text-center text-capitalize">Insumos</h4>
+                <p-chart type="bar" [data]="suppliesInventory" [options]="basicOptions"></p-chart>
             </div>
             <div class="card mt-3">
-                <h4 class="text-center text-capitalize">Sells of month</h4>
-                <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+                <h4 class="text-center text-capitalize">Productos</h4>
+                <p-chart type="bar" [data]="productsInventory" [options]="basicOptions"></p-chart>
             </div>
             <div class="card mt-3">
                 <h4 class="text-center text-capitalize">Sells of year</h4>
-                <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+                <p-chart type="bar" [data]="suppliesInventory" [options]="basicOptions"></p-chart>
             </div>
         </p-tabPanel>
 

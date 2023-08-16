@@ -323,5 +323,79 @@ public updateCustomer(customer: Customer): Observable<any> {
   
 }
 
+   // ========================= DASHBOARD =========================================
 
+   public getCustomersummary(): Observable<any> {
+    const  headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    } 
+    return this.http.get<any[]>(this.baseUrl+'dashboard/customersummary/',{'headers':headers})
+    
+  }
+
+   public getMonthlyproductsolds(): Observable<any> {
+    const  headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    } 
+    return this.http.get<any[]>(this.baseUrl+'dashboard/monthlyproductsolds/',{'headers':headers})
+    
+  }
+
+   public getProductssold(): Observable<any> {
+    const  headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    } 
+    return this.http.get<any[]>(this.baseUrl+'dashboard/productssold/',{'headers':headers})
+    
+  }
+
+   public getProductinventory(): Observable<any> {
+    const  headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    } 
+    return this.http.get<any[]>(this.baseUrl+'dashboard/productinventory/',{'headers':headers})
+    
+  }
+
+   public getProductsummary(): Observable<any> {
+    const  headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    } 
+    return this.http.get<any[]>(this.baseUrl+'dashboard/productsummary/',{'headers':headers})
+    
+  }
+
+   public getStatistics(): Observable<any> {
+    const  headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    } 
+    return this.http.get<any[]>(this.baseUrl+'dashboard/statistics/',{'headers':headers})
+    
+  }
+
+   public getSuplyinventory(): Observable<any> {
+    const  headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    } 
+    return this.http.get<any[]>(this.baseUrl+'dashboard/suplyinventory/',{'headers':headers})
+    
+  }
+  
+   public getSupplysummary(): Observable<any> {
+    const  headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    } 
+    return this.http.get<any[]>(this.baseUrl+'dashboard/supplysummary/',{'headers':headers})
+    
+  }
+
+  
 }

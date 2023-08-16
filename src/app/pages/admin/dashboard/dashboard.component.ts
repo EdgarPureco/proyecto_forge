@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService) { }  
+  constructor( private apiService: ApiService,
+    private router: Router, private authService: AuthService) { }  
 
   logout() {  
     console.log('logout');  
@@ -17,7 +19,11 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);  
   } 
 
-  basicData: any;
+  suppliesInventory: any;
+  productsInventory: any;
+
+  suppInv!: any[]
+  productInv!: any[]
 
   basicOptions: any;
 
@@ -26,60 +32,208 @@ export class DashboardComponent implements OnInit {
   data4: any;
   data5: any;
 
+  aux1!: any[]
+  aux2!: any[]
+  
+
   options: any;
 
   ngOnInit() {
-    if(localStorage.getItem('token') != null){
-        console.log(localStorage.getItem('token'));
-    }
+
+    this.apiService.getCustomersummary().subscribe(
+        (response) => { 
+            
+            console.log(response);
+            
+        },
+        (e) => {
+            console.error(e);
+        }
+    );
+    this.apiService.getSupplysummary().subscribe(
+        (response) => { 
+            
+            console.log(response);
+            
+        },
+        (e) => {
+            console.error(e);
+        }
+    );
+    this.apiService.getMonthlyproductsolds().subscribe(
+        (response) => { 
+            
+            console.log(response);
+            
+        },
+        (e) => {
+            console.error(e);
+        }
+    );
+    this.apiService.getProductssold().subscribe(
+        (response) => { 
+            
+            console.log(response);
+            
+        },
+        (e) => {
+            console.error(e);
+        }
+    );
+    this.apiService.getProductinventory().subscribe(
+        (response) => { 
+            var tmp: any[] = response
+            var names: any[]=[]
+            var quantities: any[]=[]
+
+            tmp.forEach((item)=>{
+                names.push(item['name'])
+            })
+            tmp.forEach((item)=>{
+                quantities.push(item['availableQuantity'])
+            })
+            this.productInv=[]
+            this.productInv.push(names)
+            this.productInv.push(quantities)
+
+            this.productsInventory = {
+                labels: this.productInv[0],
+                datasets: [
+                    {
+                        label: 'Cantidad disponible',
+                        data: this.productInv[1],
+                        borderWidth: 3
+                    }
+                ]
+            };
+      
+            this.basicOptions = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    }
+                }
+            };
+            
+        },
+        (e) => {
+            console.error(e);
+        }
+    );
+    this.apiService.getProductsummary().subscribe(
+        (response) => { 
+            
+            console.log(response);
+            
+        },
+        (e) => {
+            console.error(e);
+        }
+    );
+    this.apiService.getStatistics().subscribe(
+        (response) => { 
+            
+            console.log('Stats',response);
+            
+        },
+        (e) => {
+            console.error(e);
+        }
+    );
+    this.apiService.getSuplyinventory().subscribe(
+        (response) => { 
+            var tmp: any[] = response
+            var names: any[]=[]
+            var quantities: any[]=[]
+
+            tmp.forEach((item)=>{
+                names.push(item['name'])
+            })
+            tmp.forEach((item)=>{
+                quantities.push(item['availableUseQuantity'])
+            })
+            this.suppInv=[]
+            this.suppInv.push(names)
+            this.suppInv.push(quantities)
+
+            this.suppliesInventory = {
+                labels: this.suppInv[0],
+                datasets: [
+                    {
+                        label: 'Cantidad disponible',
+                        data: this.suppInv[1],
+                        borderWidth: 3
+                    }
+                ]
+            };
+      
+            this.basicOptions = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    }
+                }
+            };
+            
+        },
+        (e) => {
+            console.error(e);
+        }
+    );
+
+
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue('--text-color');
       const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
       const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-      this.basicData = {
-          labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-          datasets: [
-              {
-                  label: 'Sales',
-                  data: [540, 325, 702, 620],
-                  backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-                  borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'],
-                  borderWidth: 1
-              }
-          ]
-      };
-
-      this.basicOptions = {
-          plugins: {
-              legend: {
-                  labels: {
-                      color: textColor
-                  }
-              }
-          },
-          scales: {
-              y: {
-                  beginAtZero: true,
-                  ticks: {
-                      color: textColorSecondary
-                  },
-                  grid: {
-                      color: surfaceBorder,
-                      drawBorder: false
-                  }
-              },
-              x: {
-                  ticks: {
-                      color: textColorSecondary
-                  },
-                  grid: {
-                      color: surfaceBorder,
-                      drawBorder: false
-                  }
-              }
-          }
-      };
+     
 
       this.data3 = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
