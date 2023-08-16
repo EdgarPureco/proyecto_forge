@@ -1,6 +1,4 @@
-
-<app-navbar-admin></app-navbar-admin>
-
+<app-navbar></app-navbar>
 
 <div class="container-fluid mt-3">
 
@@ -9,95 +7,77 @@
         <p-toolbar styleClass="mb-4 gap-2">
             <ng-template pTemplate="left">
             </ng-template>
-            <h1>Orders</h1>
+            <h1>Mis Pedidos</h1>
         </p-toolbar>
+    <p-table [value]="orders" dataKey="payment" [tableStyle]="{ 'min-width': '80vw' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 5rem"></th>
+                <th>Pago</th>
+                    <th pSortableColumn="deliveryFee" >Envío <p-sortIcon field="deliveryFee"></p-sortIcon></th>
+                    <th pSortableColumn="status">Estatus <p-sortIcon field="status"></p-sortIcon></th>
+                    <th pSortableColumn="subtotal">Subtotal <p-sortIcon field="subtotal"></p-sortIcon></th>
+                    <th pSortableColumn="total">Total <p-sortIcon field="total"></p-sortIcon></th>
+                    <th pSortableColumn="date">Fecha <p-sortIcon field="date"></p-sortIcon></th>
+                </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="order" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+                <td>
+                    {{order.payment}}
+                </td>
+                <td>
+                    {{order.deliveryFee}}
+                </td>
+                <td>
+                    <p-tag [value]="order.status" [severity]="getStatus(order)"></p-tag>
+                </td>
+                <td>
+                    {{order.subtotal | currency: 'USD'}}
+                </td>
+                <td>
+                    {{order.total | currency: 'USD'}}
+                </td>
+                <td>
+                    {{order.date}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-order>
+            <tr>
+                <td colspan="7">
+                    <div class="p-3">
+                        <p-table [value]="order.details" dataKey="id">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="productName">Producto <p-sortIcon field="productName"></p-sortIcon></th>
+                                    <th pSortableColumn="price">Precio <p-sortIcon field="price"></p-sortIcon></th>
+                                    <th pSortableColumn="quantity">Cantidad <p-sortIcon field="quantity"></p-sortIcon></th>
+                                    <th >Total</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-details>
+                                <tr>
+                                    
+                                    <td>{{ details.productName }}</td>
+                                    <td>{{ details.price  | currency: 'USD' }}</td>
+                                    <td>{{ details.quantity }}</td>
+                                    <td>{{ details.price * details.quantity | currency: 'USD' }}</td>
 
-       
-<p-table [value]="orders" sortField="details.name" sortMode="single" dataKey="details.name" rowGroupMode="subheader"
-groupRowsBy="details.name" [tableStyle]="{'min-width': '70rem'}">
-<ng-template pTemplate="header">
-    <tr>
-        <th style="width:20%">Pago</th>
-                    <th style="width:20%">Envío</th>
-                    <th style="width:20%">Estatus</th>
-                    <th style="width:20%">Subtotal</th>
-                    <th style="width:20%">Total</th>
-                    <th style="width:20%">Date</th>
-    </tr>
-</ng-template>
-<ng-template pTemplate="groupheader" let-order let-rowIndex="rowIndex" let-expanded="expanded">
-    <tr>
-        <td colspan="9">
-            <button type="button" pButton pRipple [pRowToggler]="order"
-                class="p-button-text p-button-rounded p-button-plain mr-2"
-                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-
-            <span class="font-bold ml-2">{{order.customer.names}}</span>
-        </td>
-        
-            <td>
-                {{order.payment}}
-            </td>
-            <td>
-                {{order.deliveryFee}}
-            </td>
-            <td>
-                <p-tag [value]="order.status" [severity]="getStatus(order)"></p-tag>
-            </td>
-            <td>
-                {{order.subtotal}}
-            </td>
-            <td>
-                {{order.total}}
-            </td>
-            <td>
-                {{order.date}}
-            </td>
-        
-    </tr>
-</ng-template>
-<ng-template pTemplate="groupfooter" let-order>
-    <tr class="p-rowgroup-footer">
-        <td colspan="8" style="text-align: right">Total Products</td>
-        <td>{{order.details.length}}</td>
-    </tr>
-</ng-template>
-<ng-template pTemplate="rowexpansion" let-order>
-    <tr>
-        <td>
-            {{order.customer.names}}
-        </td>
-        <td>
-            {{order.customer.email}}
-        </td>
-        <td>
-            {{order.payment}}
-        </td>
-        <td>
-            {{order.deliveryFee}}
-        </td>
-        <td>
-            <p-tag [value]="order.status" [severity]="getStatus(order)"></p-tag>
-        </td>
-        <td>
-            {{order.subtotal}}
-        </td>
-        <td>
-            {{order.total}}
-        </td>
-        <td>
-            {{order.date}}
-        </td>
-        <td *ngIf="order.status=='Enviada' && role != 'stocker'">
-            <button pButton pRipple icon="pi pi-send" class="p-button-rounded p-button-success mr-2"
-                (click)="setReceived(order.id)"></button>
-        </td>
-        <td *ngIf="order.status=='Pedido' && role != 'stocker'">
-            <button pButton pRipple icon="pi pi-arrow-circle-right" class="p-button-rounded p-button-warning mr-2"
-                (click)="setDelivered(order.id)"></button>
-        </td>
-    </tr>
-</ng-template>
-</p-table>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="6">There are no details for this order yet.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
-

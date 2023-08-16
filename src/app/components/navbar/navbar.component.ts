@@ -28,47 +28,47 @@ export class NavbarComponent implements OnInit {
         if(this.isLoggedIn){
             this.items = [
                 {
-                    label: 'Home',
+                    label: 'Inicio',
                     icon: 'pi pi-fw pi-home',
                     routerLink: '/home'
                 },  
                 {
-                    label: 'Show All',
+                    label: 'Todos',
                     icon: 'pi pi-fw pi-bars',
                     routerLink: '/products'
                 },  
                 {
-                    label: 'Window Frames',
+                    label: 'Marcos de Ventana',
                     icon: 'pi pi-fw pi-microsoft',
                     routerLink: '/home'
                 },
                 {
-                    label: 'Door Frames',
+                    label: 'Marcos de Puerta',
                     icon: 'pi pi-fw pi-tablet',
                     routerLink: '/home'
                 },
                 {
-                    label: 'Pots',
+                    label: 'Maceteros',
                     icon: 'pi pi-fw pi-apple'
                 },
             ];
 
             this.dropdown = [
                 {
-                    label: 'Account',
+                    label: 'Cuenta',
                     items: [
                         {
-                            label: 'My Profile',
+                            label: 'Mi perfil',
                             icon: 'pi pi-id-card',
                             routerLink: '/profile'
                         },
                         {
-                            label: 'My orders',
+                            label: 'Mis pedidos',
                             icon: 'pi pi-dollar',
                             routerLink: '/myOrders'
                         },
                         {
-                            label: 'Logout',
+                            label: 'Cerrar Sesión',
                             icon: 'pi pi-external-link',
                             command: () => {
                                 this.logout();

@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
     };
       
     this.data2 = {
-        labels: ['Door Frames', 'Window Frames', 'Pots',],
+        labels: ['Marcos de Puerta', 'Marcos de Ventana', 'Pots',],
         datasets: [
             {
                 label: 'Made',
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
     };
     
     this.data4 = {
-        labels: ['Door Frames', 'Window Frames', 'Pots', 'item1', 'item2', 'item3'],
+        labels: ['Marcos de Puerta', 'Marcos de Ventana', 'Pots', 'item1', 'item2', 'item3'],
         datasets: [
             {
                 label: 'Best',
@@ -130,7 +130,7 @@ export class DashboardComponent implements OnInit {
     };
     
     this.data5 = {
-        labels: ['Door Frames', 'Window Frames', 'Pots', 'item1', 'item2', 'item3'],
+        labels: ['Marcos de Puerta', 'Marcos de Ventana', 'Pots', 'item1', 'item2', 'item3'],
         datasets: [
             {
                 label: 'Worst',
