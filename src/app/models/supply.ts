@@ -6,6 +6,7 @@ export interface Supply {
     buyUnit?: string;
     useUnit?: string;
     equivalence?: number;
+    stock?: number;
     image?: any;
     quantity?: number;
     inventoryStatus?: string;

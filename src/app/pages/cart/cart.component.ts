@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from 'src/app/models/product';
 import { ApiService } from 'src/app/services/api.service';
@@ -35,6 +36,7 @@ export class CartComponent {
     currentYear!: number;
 
     constructor(private apiService: ApiService,
+        private router: Router,
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
         private formBuilder: FormBuilder) {
@@ -117,8 +119,6 @@ export class CartComponent {
             product.quantity = product.quantity! - 1;
             this.products[this.findIndexById(product.id!)] = product;
         }
-        console.log(product);
-
     }
 
     onSubmit() {
@@ -141,9 +141,14 @@ export class CartComponent {
 
             this.apiService.saveOrder('4', card, items).subscribe(
                 response => {
-                    if (response.succes) {
+                    if (response.success) {
                         localStorage.removeItem('cart')
-                        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Su orden ha sido enviada', life: 3000 })
+                        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Su orden ha sido enviada', life: 3000 });
+                        (async () => { 
+                            await this.delay(1000);
+                    
+                            window.location.reload();
+                        })();
                     } else {
                         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Algunos de los productos se han agotado', life: 3000 });
                     }
@@ -157,6 +162,10 @@ export class CartComponent {
         } else {
             console.log('Form is invalid');
         }
+    }
+
+    delay(ms: number) {
+        return new Promise( resolve => setTimeout(resolve, ms) );
     }
 
 }

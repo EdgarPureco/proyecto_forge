@@ -28,6 +28,10 @@ export class SuppliesComponent implements OnInit {
 
     statuses!: any[];
 
+    buyDialog: boolean = false;
+
+    quantity!: number;
+
     constructor(
         private apiService: ApiService,
         private messageService: MessageService,
@@ -50,6 +54,8 @@ export class SuppliesComponent implements OnInit {
                 console.error(e);
             }
         );
+        
+        
     }
 
     openNew() {
@@ -60,8 +66,6 @@ export class SuppliesComponent implements OnInit {
 
 
     editSupply(supply: Supply) {
-        console.log(supply);
-        
         this.supply = { ...supply };
         this.supplyDialog = true;
     }
@@ -77,10 +81,10 @@ export class SuppliesComponent implements OnInit {
                     this.apiService.deleteSupply(supply.id).subscribe(
                         () => this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supply Eliminado', life: 3000 }),
                         (e) => {
-                            this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supply Not Eliminado', life: 3000 })
+                            this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Supply No Eliminado', life: 3000 })
                         }
                     )
-                    : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Supply Not Eliminado', life: 3000 })
+                    : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Supply No Eliminado', life: 3000 })
 
                 this.supply = {};
             }
@@ -115,11 +119,11 @@ export class SuppliesComponent implements OnInit {
                 this.supplies[this.findIndexById(this.supply.id)] = this.supply;
                 this.apiService.updateSupply(this.supply.id,this.supply).subscribe(
                     () => {
-                        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supply Updated', life: 3000 })
+                        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supply Actualizado', life: 3000 })
                     },
                     (e) => {
                         console.log(e);
-                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supply Not Updated', life: 3000 })
+                        this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Supply No Actualizado', life: 3000 })
                     }
                 );
             } else {
@@ -131,7 +135,7 @@ export class SuppliesComponent implements OnInit {
                     },
                     (e) => {
                         console.log(e);
-                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supply Not Added', life: 3000 })
+                        this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Supply No Added', life: 3000 })
                     }
                 );
             }
@@ -172,19 +176,38 @@ export class SuppliesComponent implements OnInit {
         return index;
     }
 
+    openBuy(supply: Supply) {
+        this.supply = { ...supply };
+        this.quantity = 1;
+        this.buyDialog = true;
+    }
+
+    buy(){
+        this.apiService.buySupply(this.supply.id!, this.quantity).subscribe(
+            (response) => {
+                this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Suministro Comprado', life: 3000 })
+            },
+            (e) => {
+                console.log(e);
+                this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Suministro No Comprado', life: 3000 })
+            }
+        );
+        this.buyDialog = false;
+    }
+
     getSeverity(supply: Supply) {
         switch (supply.inventoryStatus) {
-            case 'INSTOCK':
+            case 'En inventario':
                 return 'success';
 
-            case 'LOWSTOCK':
+            case 'Poco inventario':
                 return 'warning';
 
-            case 'OUTOFSTOCK':
+            case 'Sin inventario':
                 return 'danger';
 
             default:
-                return 'OUTOFSTOCK';
+                return 'Sin inventario';
         }
     };
 }

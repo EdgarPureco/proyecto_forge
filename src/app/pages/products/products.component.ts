@@ -43,8 +43,8 @@ export class ProductsComponent {
       }
     );
     this.sortOptions = [
-      { label: 'Price High to Low', value: '!price' },
-      { label: 'Price Low to High', value: 'price' }
+      { label: 'Precio Descendente', value: '!price' },
+      { label: 'Precio Ascendente', value: 'price' }
     ];
   }
 
@@ -80,17 +80,17 @@ export class ProductsComponent {
 
   getSeverity(product: Product) {
     switch (product.inventoryStatus) {
-      case 'INSTOCK':
+      case 'En inventario':
         return 'success';
 
-      case 'LOWSTOCK':
+      case 'Poco inventario':
         return 'warning';
 
-      case 'OUTOFSTOCK':
+      case 'Sin inventario':
         return 'danger';
 
       default:
-        return 'OUTOFSTOCK';
+        return 'Sin inventario';
     }
   };
 

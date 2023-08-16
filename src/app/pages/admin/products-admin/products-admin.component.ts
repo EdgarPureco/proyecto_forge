@@ -21,6 +21,7 @@ export class ProductsAdminComponent implements OnInit {
     Delete = 'Delete'
     productDialog: boolean = false;
     editSuppliesDialog: boolean = false;
+    produceDialog: boolean = false;
 
     addSuppliesDialog: boolean = false;
 
@@ -39,6 +40,8 @@ export class ProductsAdminComponent implements OnInit {
     submitted: boolean = false;
 
     statuses!: any[];
+
+    quantity!: number;
 
     constructor(
         private apiService: ApiService,
@@ -69,6 +72,12 @@ export class ProductsAdminComponent implements OnInit {
         this.submitted = false;
         this.productDialog = true;
     }
+    
+    openProduce(product: Product) {
+        this.product = { ...product };
+        this.quantity = 1;
+        this.produceDialog = true;
+    }
 
 
     editProduct(product: Product) {
@@ -88,10 +97,10 @@ export class ProductsAdminComponent implements OnInit {
                     this.apiService.deleteProduct(product.id).subscribe(
                         () => this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Producto Eliminado', life: 3000 }),
                         (e) => {
-                            this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Producto Not Eliminado', life: 3000 })
+                            this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Producto No Eliminado', life: 3000 })
                         }
                     )
-                    : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Producto Not Eliminado', life: 3000 })
+                    : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Producto No Eliminado', life: 3000 })
 
                 this.product = {};
             }
@@ -126,11 +135,11 @@ export class ProductsAdminComponent implements OnInit {
                 this.products[this.findIndexById(this.product.id)] = this.product;
                 this.apiService.updateProduct(this.product.id, this.product).subscribe(
                     () => {
-                        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Producto Updated', life: 3000 })
+                        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Producto Actualizado', life: 3000 })
                     },
                     (e) => {
                         console.log(e);
-                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Producto Not Updated', life: 3000 })
+                        this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Producto No Actualizado', life: 3000 })
                     }
                 );
             } else {
@@ -141,7 +150,7 @@ export class ProductsAdminComponent implements OnInit {
                     },
                     (e) => {
                         console.log(e);
-                        this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Producto Not Added', life: 3000 })
+                        this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Producto No Added', life: 3000 })
                     }
                 );
             }
@@ -156,6 +165,19 @@ export class ProductsAdminComponent implements OnInit {
 
     add(){
         this.products.push(this.product)
+    }
+    
+    produce(){
+        this.apiService.produceProduct(this.product.id!, this.quantity).subscribe(
+            (response) => {
+                this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Producto Producido', life: 3000 })
+            },
+            (e) => {
+                this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Producto No Fue Producido', life: 3000 })
+            }
+        );
+
+        this.produceDialog=false;
     }
 
     findIndexById(id: string): number {
@@ -174,17 +196,17 @@ export class ProductsAdminComponent implements OnInit {
 
     getSeverity(product: Product) {
         switch (product.inventoryStatus) {
-            case 'INSTOCK':
+            case 'En inventario':
                 return 'success';
 
-            case 'LOWSTOCK':
+            case 'Poco inventario':
                 return 'warning';
 
-            case 'OUTOFSTOCK':
+            case 'Sin inventario':
                 return 'danger';
 
             default:
-                return 'OUTOFSTOCK';
+                return 'Sin inventario';
         }
     };
 
@@ -228,11 +250,11 @@ export class ProductsAdminComponent implements OnInit {
         });
         this.apiService.saveProductSupplies(this.product.id!.toString(), this.sendSupplies).subscribe(
             () => {
-                this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supplies Updated', life: 3000 })
+                this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supplies Actualizado', life: 3000 })
             },
             (e) => {
                 console.log(e);
-                this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supplies Not Updated', life: 3000 })
+                this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Supplies No Actualizado', life: 3000 })
             }
         );
         

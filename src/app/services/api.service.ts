@@ -79,6 +79,17 @@ export class ApiService {
     
   }
   
+  
+  public produceProduct(id: string, quantity:number): Observable<any> {
+    const  headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    } 
+    const body=JSON.stringify({"productId": id, "quantity": quantity});
+    return this.http.post<any>(this.baseUrl+'products/make/', body,{'headers':headers})
+    
+  }
+  
   public updateProduct(id:string, product:Product): Observable<any> {
     const  headers = {
       'Content-Type': 'application/json',
@@ -170,6 +181,16 @@ export class ApiService {
     }
     const body=JSON.stringify(supply);
     return this.http.post<Supply>(this.baseUrl+'supplies/', body,{'headers':headers})
+    
+  }
+  
+  public buySupply(id: string, quantity: number): Observable<any> {
+    const   headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+    const body=JSON.stringify({"supplyId": id, "quantity": quantity});
+    return this.http.post<any>(this.baseUrl+'supplies/buy/', body,{'headers':headers})
     
   }
   
@@ -271,12 +292,23 @@ public setReceived(id: string, ): Observable<any> {
   return this.http.post<any[]>(this.baseUrl+'orders/markasreceived/', body,{'headers':headers})
   
 }
+
 public getOrders(): Observable<any> {
   const  headers = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem('token')}`
   } 
   return this.http.get<any[]>(this.baseUrl+'orders/',{'headers':headers})
+  
+}
+
+public getCustomerOrders(): Observable<any> {
+  const  headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  } 
+  const body=JSON.stringify({"customerId": localStorage.getItem('id')});
+  return this.http.post<any>(this.baseUrl+'customers/orders/',body,{'headers':headers})
   
 }
 

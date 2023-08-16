@@ -1,3 +1,4 @@
+
 <app-navbar-admin></app-navbar-admin>
 
 
@@ -16,15 +17,12 @@
 groupRowsBy="details.name" [tableStyle]="{'min-width': '70rem'}">
 <ng-template pTemplate="header">
     <tr>
-        <th style="width:20%">Cliente</th>
-        <th style="width:20%">Email</th>
         <th style="width:20%">Pago</th>
-        <th style="width:20%">Envío</th>
-        <th style="width:20%">Estatus</th>
-        <th style="width:20%">Subtotal</th>
-        <th style="width:20%">Total</th>
-        <th style="width:20%">Date</th>
-        <th style="width:20%">Cambiar Estatus</th>
+                    <th style="width:20%">Envío</th>
+                    <th style="width:20%">Estatus</th>
+                    <th style="width:20%">Subtotal</th>
+                    <th style="width:20%">Total</th>
+                    <th style="width:20%">Date</th>
     </tr>
 </ng-template>
 <ng-template pTemplate="groupheader" let-order let-rowIndex="rowIndex" let-expanded="expanded">
@@ -36,12 +34,32 @@ groupRowsBy="details.name" [tableStyle]="{'min-width': '70rem'}">
 
             <span class="font-bold ml-2">{{order.customer.names}}</span>
         </td>
+        
+            <td>
+                {{order.payment}}
+            </td>
+            <td>
+                {{order.deliveryFee}}
+            </td>
+            <td>
+                <p-tag [value]="order.status" [severity]="getStatus(order)"></p-tag>
+            </td>
+            <td>
+                {{order.subtotal}}
+            </td>
+            <td>
+                {{order.total}}
+            </td>
+            <td>
+                {{order.date}}
+            </td>
+        
     </tr>
 </ng-template>
 <ng-template pTemplate="groupfooter" let-order>
     <tr class="p-rowgroup-footer">
-        <td colspan="8" style="text-align: right">Total Orders</td>
-        <td>{{orders.length}}</td>
+        <td colspan="8" style="text-align: right">Total Products</td>
+        <td>{{order.details.length}}</td>
     </tr>
 </ng-template>
 <ng-template pTemplate="rowexpansion" let-order>

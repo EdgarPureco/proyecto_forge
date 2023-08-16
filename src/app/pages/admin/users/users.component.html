@@ -23,7 +23,7 @@
                 <tr>
                     <th pResizableColumn pSortableColumn="email" style="min-width:15rem">Email <p-sortIcon field="email"></p-sortIcon></th>
                     <th pResizableColumn pSortableColumn="role" style="min-width:10rem">Role <p-sortIcon field="role"></p-sortIcon></th>
-                    <th pResizableColumn style="min-width:10rem">Options </th>
+                    <th pResizableColumn style="min-width:10rem">Opciones </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-user>
@@ -76,9 +76,9 @@
         </ng-template>
 
         <ng-template pTemplate="footer">
-            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
                 (click)="hideDialog()"></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+            <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
                 (click)="saveUser()"></button>
         </ng-template>
     </p-dialog>

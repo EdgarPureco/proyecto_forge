@@ -14,6 +14,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './guards/auth.guard';  
 import { Roles } from './models/roles';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
+import { CustomerOrdersComponent } from './pages/customer-orders/customer-orders.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path:"login", component: LoginComponent},
   {path:"signup", component: SignupComponent},
   {path:"cart", component: CartComponent, canActivate : [AuthGuard]},
+  {path:"myOrders", component: CustomerOrdersComponent, canActivate : [AuthGuard]},
 
   {path:"admin/dashboard", component: DashboardComponent, canActivate : [AuthGuard],
         data: { roles: [Roles.Admin, Roles.Seller, Roles.Stocker]}},

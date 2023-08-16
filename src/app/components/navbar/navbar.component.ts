@@ -65,7 +65,7 @@ export class NavbarComponent implements OnInit {
                         {
                             label: 'My orders',
                             icon: 'pi pi-dollar',
-                            routerLink: '/orders'
+                            routerLink: '/myOrders'
                         },
                         {
                             label: 'Logout',

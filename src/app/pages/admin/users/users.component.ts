@@ -66,10 +66,10 @@ export class UsersComponent {
                   this.apiService.deleteUser(user.id).subscribe(
                       () => this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'User Eliminado', life: 3000 }),
                       (e) => {
-                          this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'User Not Eliminado', life: 3000 })
+                          this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'User No Eliminado', life: 3000 })
                       }
                   )
-                  : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User Not Eliminado', life: 3000 })
+                  : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User No Eliminado', life: 3000 })
 
               this.user = {};
           }
@@ -90,11 +90,11 @@ export class UsersComponent {
               this.users[this.findIndexById(this.user.id)] = this.user;
               this.apiService.updateUser(this.user.id, this.user).subscribe(
                   () => {
-                      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'User Updated', life: 3000 })
+                      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'User Actualizado', life: 3000 })
                   },
                   (e) => {
                       console.log(e);
-                      this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'User Not Updated', life: 3000 })
+                      this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'User No Actualizado', life: 3000 })
                   }
               );
           } else {
@@ -105,7 +105,7 @@ export class UsersComponent {
                   },
                   (e) => {
                       console.log(e);
-                      this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'User Not Added', life: 3000 })
+                      this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'User No Added', life: 3000 })
                   }
               );
           }

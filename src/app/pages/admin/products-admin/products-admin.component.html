@@ -21,10 +21,10 @@
 
             <ng-template pTemplate="header">
                 <tr>
-                    <th pResizableColumn pSortableColumn="name" style="min-width:15rem">Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th pResizableColumn >Image</th>
-                    <th pResizableColumn pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                    <th pResizableColumn pSortableColumn="category" style="min-width:10rem">Category <p-sortIcon
+                    <th pResizableColumn pSortableColumn="name" style="min-width:15rem">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pResizableColumn >Imagen</th>
+                    <th pResizableColumn pSortableColumn="price">Precio <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pResizableColumn pSortableColumn="category" style="min-width:10rem">Categoría <p-sortIcon
                             field="category"></p-sortIcon></th>
 
                     <th pResizableColumn pSortableColumn="width" style="min-width:10rem">Width <p-sortIcon
@@ -36,7 +36,7 @@
 
                     <th pResizableColumn pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon
                             field="inventoryStatus"></p-sortIcon></th>
-                    <th pResizableColumn >Product Options</th>
+                    <th pResizableColumn >Opciones de Producto</th>
                     <th pResizableColumn >Product Supplies</th>
                 </tr>
             </ng-template>
@@ -53,17 +53,20 @@
                     <td>
                         <p-tag [value]="product.inventoryStatus"
                             [severity]="getSeverity(product)"></p-tag>
+                            {{ product.stock }}
                     </td>
                     <td>
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
+                        <button pButton pRipple icon="pi pi-wrench" style="margin-right: 10px;" class="p-button-rounded p-button-secondary mr-2"
+                            (click)="openProduce(product)"></button>
+                        <button pButton pRipple icon="pi pi-pencil" style="margin-right: 10px;" class="p-button-rounded p-button-primary mr-2"
                             (click)="editProduct(product)"></button>
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        <button pButton pRipple icon="pi pi-trash" style="margin-right: 10px;" class="p-button-rounded p-button-danger"
                             (click)="deleteProduct(product)"></button>
                     </td>
                     <td>
-                        <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary"
+                        <button pButton pRipple icon="pi pi-plus" style="margin-right: 10px;" class="p-button-rounded p-button-primary"
                             (click)="addSupplies(product)"></button>
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
+                        <button pButton pRipple icon="pi pi-pencil" style="margin-right: 10px;" class="p-button-rounded p-button-primary mr-2"
                             (click)="editSupplies(product)"></button>
                     </td>
                 </tr>
@@ -74,18 +77,20 @@
             </ng-template>
         </p-table>
     </div>
+
+
     <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
         styleClass="p-fluid">
         <ng-template pTemplate="content">
             <div class="field">
-                <label for="demo[]">Image</label>
+                <label for="demo[]">Imagen</label>
                 <p-fileUpload name="demo[]" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($any($event))" [multiple]="false" accept="image/png">
                 </p-fileUpload>
             </div>
             <div class="field">
-                <label for="name">Name</label>
+                <label for="name">Nombre</label>
                 <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
-                <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>
+                <small class="p-error" *ngIf="submitted && !product.name">Nombre is required.</small>
             </div>
             <div class="field">
                 <label for="description">Description</label>
@@ -110,12 +115,12 @@
             </div>
 
             <div class="field">
-                <label class="mb-3">Category</label>
+                <label class="mb-3">Categoría</label>
                 <div class="formgrid grid">
                     <div class="field-radiobutton col-6">
                         <p-radioButton id="category1" name="category" value="Window Frames"
                             [(ngModel)]="product.category"></p-radioButton>
-                        <label for="category1">Window Frames</label>
+                        <label for="category1">Ventana Frames</label>
                     </div>
                     <div class="field-radiobutton col-6">
                         <p-radioButton id="category2" name="category" value="Door Frames"
@@ -132,7 +137,7 @@
 
             <div class="formgrid grid">
                 <div class="field col">
-                    <label for="price">Price</label>
+                    <label for="price">Precio</label>
                     <p-inputNumber [showButtons]="true" placeholder="0" id="price" [(ngModel)]="product.price" mode="currency" currency="USD"
                         locale="en-US"></p-inputNumber>
                 </div>
@@ -140,9 +145,9 @@
         </ng-template>
 
         <ng-template pTemplate="footer">
-            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
                 (click)="hideDialog()"></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+            <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
                 (click)="saveProduct()"></button>
         </ng-template>
     </p-dialog>
@@ -163,7 +168,7 @@
                                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                             </th>
                             <td>Id</td>
-                            <th pResizableColumn >Name</th>
+                            <th pResizableColumn >Nombre</th>
                             <th pResizableColumn >Cost</th>
                             <th pResizableColumn >Buy Unit</th>
                             <th pResizableColumn >Use Unit</th>
@@ -191,9 +196,9 @@
         </ng-template>
 
         <ng-template pTemplate="footer">
-            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
                 (click)="hideDialog()"></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+            <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
                 (click)="saveSupplies()"></button>
         </ng-template>
     </p-dialog>
@@ -215,7 +220,7 @@
                                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                             </th>
                             <th pResizableColumn >Id</th>
-                            <th pResizableColumn >Name</th>
+                            <th pResizableColumn >Nombre</th>
                             <th pResizableColumn >Cost</th>
                             <th pResizableColumn >Buy Unit</th>
                             <th pResizableColumn >Use Unit</th>
@@ -243,13 +248,33 @@
         </ng-template>
 
         <ng-template pTemplate="footer">
-            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
                 (click)="hideDialog()"></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+            <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
                 (click)="saveSupplies()"></button>
         </ng-template>
     </p-dialog>
    
+
+    <p-dialog [(visible)]="produceDialog" [style]="{ width: '450px' }" header="Producir Producto" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="quantity">Cantidad</label>
+                    <p-inputNumber [showButtons]="true" placeholder="0" id="quantity" [(ngModel)]="quantity" pKeyFilter="int"></p-inputNumber>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+                (click)="hideDialog()"></button>
+            <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+                (click)="produce()"></button>
+        </ng-template>
+    </p-dialog>
 
     <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 </div>

@@ -65,10 +65,10 @@ export class SuppliersComponent implements OnInit {
                   this.apiService.deleteSupplier(supplier.id).subscribe(
                       () => this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supplier Eliminado', life: 3000 }),
                       (e) => {
-                          this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supplier Not Eliminado', life: 3000 })
+                          this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Supplier No Eliminado', life: 3000 })
                       }
                   )
-                  : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Supplier Not Eliminado', life: 3000 })
+                  : this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Supplier No Eliminado', life: 3000 })
 
               this.supplier = {};
           }
@@ -88,11 +88,11 @@ export class SuppliersComponent implements OnInit {
               this.suppliers[this.findIndexById(this.supplier.id)] = this.supplier;
               this.apiService.updateSupplier(this.supplier.id, this.supplier).subscribe(
                   () => {
-                      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supplier Updated', life: 3000 })
+                      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Supplier Actualizado', life: 3000 })
                   },
                   (e) => {
                       console.log(e);
-                      this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supplier Not Updated', life: 3000 })
+                      this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Supplier No Actualizado', life: 3000 })
                   }
               );
           } else {
@@ -103,7 +103,7 @@ export class SuppliersComponent implements OnInit {
                   },
                   (e) => {
                       console.log(e);
-                      this.messageService.add({ severity: 'error', summary: 'Error from server', detail: 'Supplier Not Added', life: 3000 })
+                      this.messageService.add({ severity: 'error', summary: 'Error del servidor', detail: 'Supplier No Added', life: 3000 })
                   }
               );
           }

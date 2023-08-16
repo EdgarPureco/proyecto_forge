@@ -116,6 +116,7 @@ import { OrdersComponent } from './pages/admin/orders/orders.component';
 import { BuysComponent } from './pages/admin/buys/buys.component';
 import { SuppliersComponent } from './pages/admin/suppliers/suppliers.component';
 import { ProductsComponent } from './pages/products/products.component';
+import { CustomerOrdersComponent } from './pages/customer-orders/customer-orders.component';
 
 
 @NgModule({
@@ -140,6 +141,7 @@ import { ProductsComponent } from './pages/products/products.component';
     BuysComponent,
     SuppliersComponent,
     ProductsComponent,
+    CustomerOrdersComponent,
   ],
   imports: [
     BrowserModule,

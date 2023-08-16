@@ -1,22 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Orders } from '../../../models/orders';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Orders } from 'src/app/models/orders';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.css'],
+  selector: 'app-customer-orders',
+  templateUrl: './customer-orders.component.html',
+  styleUrls: ['./customer-orders.component.css'],
   providers: [MessageService, ConfirmationService]
 })
 
-export class OrdersComponent implements OnInit {
-  Delete = 'Delete'
-  supplierDialog: boolean = false;
+export class CustomerOrdersComponent implements OnInit {
 
-  submitted: boolean = false;
-
-  statuses!: any[];
+  detailsDialog: boolean = false;
 
   orders!: Orders[];
 
@@ -29,7 +25,7 @@ export class OrdersComponent implements OnInit {
 
 ngOnInit() {
     this.role = localStorage.getItem('role')!;
-    this.apiService.getOrders().subscribe(
+    this.apiService.getCustomerOrders().subscribe(
         (response) => { 
             
             this.orders = response;
