@@ -7,10 +7,10 @@
         <p-toast></p-toast>
         <p-toolbar styleClass="mb-4 gap-2">
             <ng-template pTemplate="left">
-                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-primary mr-2"
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary mr-2"
                     (click)="openNew()"></button>
             </ng-template>
-            <h1>Supplies</h1>
+            <h1>Insumos</h1>
         </p-toolbar>
 
         <p-table #dt [value]="supplies" [rows]="10" [paginator]="true" [resizableColumns]="true"
@@ -30,8 +30,8 @@
                             field="useUnit"></p-sortIcon></th>
                     <th pResizableColumn pSortableColumn="equivalence" style="min-width:10rem">Equivalencia <p-sortIcon
                             field="equivalence"></p-sortIcon></th>
-                    <th pResizableColumn pSortableColumn="inventoryStatus" style="min-width:10rem">Estatus <p-sortIcon
-                            field="inventoryStatus"></p-sortIcon></th>
+                    <!-- <th pResizableColumn pSortableColumn="inventoryStatus" style="min-width:10rem">Estatus <p-sortIcon
+                            field="inventoryStatus"></p-sortIcon></th> -->
                     <th pResizableColumn>Opciones</th>
                 </tr>
             </ng-template>
@@ -44,11 +44,11 @@
                     <td>{{ supply.buyUnit }}</td>
                     <td>{{ supply.useUnit }}</td>
                     <td>{{ supply.equivalence }}</td>
-                    <td>
+                    <!-- <td>
                         <p-tag [value]="supply.inventoryStatus"
                             [severity]="getSeverity(supply)"></p-tag>
                             {{ supply.stock }}
-                    </td>
+                    </td> -->
                     <td>
                         <button pButton pRipple icon="pi pi-wallet" style="margin-right: 10px;" class="p-button-rounded p-button-secondary mr-2"
                             (click)="openBuy(supply)"></button>
@@ -60,8 +60,8 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">
-                <div class="flex align-items-center justify-content-between">In total there are {{ supplies ?
-                    supplies.length : 0 }} supplies.</div>
+                <div class="flex align-items-center justify-content-between">En total hay {{ supplies ?
+                    supplies.length : 0 }} insumos.</div>
             </ng-template>
         </p-table>
     </div>
@@ -72,36 +72,36 @@
                 <label for="demo[]">Imagen</label>
                 <p-fileUpload name="demo[]" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($any($event))" [multiple]="false" accept="image/png">
                 </p-fileUpload>
-                <small class="p-error" *ngIf="submitted && !supply.image">Imagen is required.</small>
+                <small class="p-error" *ngIf="submitted && !supply.image">Imagen es requerido.</small>
             </div>
             <div class="field">
                 <label for="name">Nombre</label>
                 <input type="text" pInputText id="name" [(ngModel)]="supply.name" required autofocus />
-                <small class="p-error" *ngIf="submitted && !supply.name">Nombre is required.</small>
+                <small class="p-error" *ngIf="submitted && !supply.name">Nombre es requerido.</small>
                 <small class="p-error" *ngIf="submitted && !supply.name && supply.name!.length>3">Nombre has to be at least 3 characters long.</small>
             </div>
             <div class="formgrid grid">
                 <div class="field col">
-                    <label for="cost">Cost</label>
+                    <label for="cost">Costo</label>
                     <p-inputNumber [showButtons]="true" placeholder="0" id="cost" [(ngModel)]="supply.cost" mode="currency" currency="USD"
                         locale="en-US" [min]="1"></p-inputNumber>
-                        <small class="p-error" *ngIf="submitted && !supply.image">Cost is required.</small>
+                        <small class="p-error" *ngIf="submitted && !supply.image">Costo es requerido.</small>
                 </div>
             </div>
             <div class="field">
-                <label for="buyUnit">Buy Unit</label>
+                <label for="buyUnit">Unidad de compra</label>
                 <input id="buyUnit" pInputText [(ngModel)]="supply.buyUnit" required >
-                <small class="p-error" *ngIf="submitted && !supply.buyUnit">Buy unit is required.</small>
+                <small class="p-error" *ngIf="submitted && !supply.buyUnit">Unidad de compra es requerido.</small>
             </div>
             <div class="field">
-                <label for="useUnit">Use Unit</label>
+                <label for="useUnit">Unidad de uso</label>
                 <input id="useUnit" pInputText [(ngModel)]="supply.useUnit" required >
-                <small class="p-error" *ngIf="submitted && !supply.useUnit">Use unit is required.</small>
+                <small class="p-error" *ngIf="submitted && !supply.useUnit">Unidad de uso es requerido.</small>
             </div>
             <div class="field">
-                <label for="equivalence">Equivalence</label>
+                <label for="equivalence">Equivalencia</label>
                 <p-inputNumber [showButtons]="true" placeholder="0" id="equivalence" [(ngModel)]="supply.equivalence" [min]="1" ></p-inputNumber>
-                <small class="p-error" *ngIf="submitted && !supply.equivalence">Equivalence is required.</small>
+                <small class="p-error" *ngIf="submitted && !supply.equivalence">Equivalencia es requerido.</small>
             </div>
 
         </ng-template>

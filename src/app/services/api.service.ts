@@ -8,6 +8,7 @@ import { User } from '../models/user';
 import { Supplier } from '../models/supplier';
 import { ProductSupply } from '../models/productSupply';
 import { SignUp } from '../models/signup';
+import { Customer } from '../models/customer';
 
 @Injectable({
   providedIn: 'root'
@@ -309,6 +310,16 @@ public getCustomerOrders(): Observable<any> {
   } 
   const body=JSON.stringify({"customerId": localStorage.getItem('id')});
   return this.http.post<any>(this.baseUrl+'customers/orders/',body,{'headers':headers})
+  
+}
+
+public updateCustomer(customer: Customer): Observable<any> {
+  const  headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  } 
+  const body=JSON.stringify(customer);
+  return this.http.post<any>(this.baseUrl+'customers/updatedata/',body,{'headers':headers})
   
 }
 

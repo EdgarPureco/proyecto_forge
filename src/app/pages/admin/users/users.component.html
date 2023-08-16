@@ -7,10 +7,10 @@
         <p-toast></p-toast>
         <p-toolbar styleClass="mb-4 gap-2">
             <ng-template pTemplate="left">
-                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-primary mr-2"
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary mr-2"
                     (click)="openNew()"></button>
             </ng-template>
-            <h1>Users</h1>
+            <h1>Usuarios</h1>
         </p-toolbar>
 
         <p-table #dt [value]="users" [rows]="10" [paginator]="true" [resizableColumns]="true"
@@ -22,7 +22,7 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th pResizableColumn pSortableColumn="email" style="min-width:15rem">Email <p-sortIcon field="email"></p-sortIcon></th>
-                    <th pResizableColumn pSortableColumn="role" style="min-width:10rem">Role <p-sortIcon field="role"></p-sortIcon></th>
+                    <th pResizableColumn pSortableColumn="role" style="min-width:10rem">Rol <p-sortIcon field="role"></p-sortIcon></th>
                     <th pResizableColumn style="min-width:10rem">Opciones </th>
                 </tr>
             </ng-template>
@@ -39,8 +39,8 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">
-                <div class="flex align-items-center justify-content-between">In total there are {{ users ?
-                    users.length : 0 }} users.</div>
+                <div class="flex align-items-center justify-content-between">En total hay {{ users ?
+                    users.length : 0 }} usuarios.</div>
             </ng-template>
         </p-table>
     </div>
@@ -50,10 +50,10 @@
             <div class="field">
                 <label for="email">Email</label>
                 <input type="text" pInputText id="email" [(ngModel)]="user.email" required autofocus />
-                <small class="p-error" *ngIf="submitted && !user.email">Email is required.</small>
+                <small class="p-error" *ngIf="submitted && !user.email">Email es requerido.</small>
             </div>
             <div class="field">
-                <label class="mb-3">Role</label>
+                <label class="mb-3">Rol</label>
                 <div class="formgrid grid">
                     <div class="field-radiobutton col-6">
                         <p-radioButton id="role1" name="role" value="1"

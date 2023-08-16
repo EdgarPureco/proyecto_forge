@@ -47,7 +47,6 @@ groupRowsBy="details.name" [tableStyle]="{'min-width': '70rem'}">
 <ng-template pTemplate="rowexpansion" let-order>
     <tr>
         <td>
-            {{order.customer.names}}
         </td>
         <td>
             {{order.customer.email}}
@@ -83,3 +82,6 @@ groupRowsBy="details.name" [tableStyle]="{'min-width': '70rem'}">
 </p-table>
 </div>
 
+<div class="image_1 text-center" *ngIf="orders.length==0">
+    <img style="max-width: 20vw;" src="assets/empty.png">
+  </div>

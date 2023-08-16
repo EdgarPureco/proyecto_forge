@@ -109,11 +109,9 @@ import { DashboardComponent } from './pages/admin/dashboard/dashboard.component'
 import { NavbarAdminComponent } from './components/navbar-admin/navbar-admin.component';
 import { ProductsAdminComponent } from './pages/admin/products-admin/products-admin.component';
 import { UsersComponent } from './pages/admin/users/users.component';
-import { CustomersComponent } from './pages/admin/customers/customers.component';
 import { SuppliesComponent } from './pages/admin/supplies/supplies.component';
 import { ProductDetailsComponent } from './pages/admin/product-details/product-details.component';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
-import { BuysComponent } from './pages/admin/buys/buys.component';
 import { SuppliersComponent } from './pages/admin/suppliers/suppliers.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CustomerOrdersComponent } from './pages/customer-orders/customer-orders.component';
@@ -134,11 +132,9 @@ import { CustomerOrdersComponent } from './pages/customer-orders/customer-orders
     NavbarAdminComponent,
     ProductsAdminComponent,
     UsersComponent,
-    CustomersComponent,
     SuppliesComponent,
     ProductDetailsComponent,
     OrdersComponent,
-    BuysComponent,
     SuppliersComponent,
     ProductsComponent,
     CustomerOrdersComponent,

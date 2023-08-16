@@ -7,10 +7,10 @@
         <p-toast></p-toast>
         <p-toolbar styleClass="mb-4 gap-2">
             <ng-template pTemplate="left">
-                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-primary mr-2"
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary mr-2"
                     (click)="openNew()"></button>
             </ng-template>
-            <h1>Suppliers</h1>
+            <h1>Proveedores</h1>
         </p-toolbar>
 
         <p-table #dt [value]="suppliers" [rows]="10" [paginator]="true" [resizableColumns]="true"
@@ -23,7 +23,7 @@
                 <tr>
                     <th pResizableColumn pSortableColumn="name" style="min-width:15rem">Nombre <p-sortIcon field="name"></p-sortIcon></th>
                     <th pResizableColumn pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
-                    <th pResizableColumn pSortableColumn="phone" style="min-width:10rem">Phone <p-sortIcon
+                    <th pResizableColumn pSortableColumn="phone" style="min-width:10rem">Teléfono <p-sortIcon
                             field="phone"></p-sortIcon></th>
                     <th pResizableColumn>Opciones</th>
                 </tr>
@@ -42,8 +42,8 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">
-                <div class="flex align-items-center justify-content-between">In total there are {{ suppliers ?
-                    suppliers.length : 0 }} suppliers.</div>
+                <div class="flex align-items-center justify-content-between">En total hay {{ suppliers ?
+                    suppliers.length : 0 }} proveedores.</div>
             </ng-template>
         </p-table>
     </div>
@@ -53,14 +53,14 @@
             <div class="field">
                 <label for="name">Nombre</label>
                 <input type="text" pInputText id="name" [(ngModel)]="supplier.name" required autofocus />
-                <small class="p-error" *ngIf="submitted && !supplier.name">Nombre is required.</small>
+                <small class="p-error" *ngIf="submitted && !supplier.name">Nombre es requerido.</small>
             </div>
             <div class="field">
                 <label for="email">Email</label>
                 <input id="email" pInputText [(ngModel)]="supplier.email" required >
             </div>
             <div class="field">
-                <label for="phone">Phone</label>
+                <label for="phone">Teléfono</label>
                 <input id="phone" pInputText  [(ngModel)]="supplier.phone" required >
             </div>
 

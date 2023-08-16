@@ -8,13 +8,13 @@ import { ProductsAdminComponent } from './pages/admin/products-admin/products-ad
 import { SuppliesComponent } from './pages/admin/supplies/supplies.component';
 import { SuppliersComponent } from './pages/admin/suppliers/suppliers.component';
 import { UsersComponent } from './pages/admin/users/users.component';
-import { CustomersComponent } from './pages/admin/customers/customers.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './guards/auth.guard';  
 import { Roles } from './models/roles';
 import { OrdersComponent } from './pages/admin/orders/orders.component';
 import { CustomerOrdersComponent } from './pages/customer-orders/customer-orders.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -24,6 +24,7 @@ const routes: Routes = [
   {path:"signup", component: SignupComponent},
   {path:"cart", component: CartComponent, canActivate : [AuthGuard]},
   {path:"myOrders", component: CustomerOrdersComponent, canActivate : [AuthGuard]},
+  {path:"profile", component: ProfileComponent, canActivate : [AuthGuard]},
 
   {path:"admin/dashboard", component: DashboardComponent, canActivate : [AuthGuard],
         data: { roles: [Roles.Admin, Roles.Seller, Roles.Stocker]}},
@@ -43,8 +44,6 @@ const routes: Routes = [
   {path:"admin/users", component: UsersComponent, canActivate : [AuthGuard],
         data: { roles: [Roles.Admin]}},
 
-  {path:"admin/customers", component: CustomersComponent, canActivate : [AuthGuard],
-        data: { roles: [Roles.Admin]}},
 ];
 
 @NgModule({

@@ -32,22 +32,22 @@ export class NavbarAdminComponent {
                 routerLink: '/admin/products'
             },
             {
-                label: 'Supplies',
+                label: 'Insumos',
                 icon: 'pi pi-fw pi-list',
                 routerLink: '/admin/supplies',
             },
             {
-                label: 'Suppliers',
+                label: 'Proveedores',
                 icon: 'pi pi-fw pi-box',
                 routerLink: '/admin/suppliers'
             },
             {
-                label: 'Users',
+                label: 'Usuarios',
                 icon: 'pi pi-fw pi-user',
                 routerLink: '/admin/users'
             },
             {
-                label: 'Orders',
+                label: 'Ordenes',
                 icon: 'pi pi-fw pi-dollar',
                 routerLink: '/admin/orders'
             },

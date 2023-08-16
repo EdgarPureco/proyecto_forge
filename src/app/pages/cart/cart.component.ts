@@ -67,13 +67,14 @@ export class CartComponent {
             { label: '11', value: '11' },
             { label: '12', value: '12' }
         ];
-
+        console.log(this.products);
+        
         this.currentYear = new Date().getFullYear();
-        this.currentYear = this.currentYear + 1;
         this.yearOptions = Array.from({ length: 10 }, (_, i) => {
             const year = this.currentYear + i;
             return { label: year.toString(), value: year.toString() };
         });
+        this.yearOptions[0] = {label:  'Año', value: ''}
 
     }
 

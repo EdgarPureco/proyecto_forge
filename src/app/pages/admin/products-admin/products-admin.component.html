@@ -7,10 +7,10 @@
         <p-toast></p-toast>
         <p-toolbar styleClass="mb-4 gap-2">
             <ng-template pTemplate="left">
-                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-primary mr-2"
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary mr-2"
                     (click)="openNew()"></button>
             </ng-template>
-            <h1>Products</h1>
+            <h1>Productos</h1>
         </p-toolbar>
 
         <p-table #dt [value]="products" [rows]="10" [paginator]="true" [resizableColumns]="true"
@@ -27,17 +27,17 @@
                     <th pResizableColumn pSortableColumn="category" style="min-width:10rem">Categoría <p-sortIcon
                             field="category"></p-sortIcon></th>
 
-                    <th pResizableColumn pSortableColumn="width" style="min-width:10rem">Width <p-sortIcon
+                    <th pResizableColumn pSortableColumn="width" style="min-width:10rem">Ancho <p-sortIcon
                             field="width"></p-sortIcon></th>
-                    <th pResizableColumn pSortableColumn="length" style="min-width:10rem">Length <p-sortIcon
+                    <th pResizableColumn pSortableColumn="length" style="min-width:10rem">Largo <p-sortIcon
                             field="length"></p-sortIcon></th>
-                    <th pResizableColumn pSortableColumn="height" style="min-width:10rem">Height <p-sortIcon
+                    <th pResizableColumn pSortableColumn="height" style="min-width:10rem">Alto <p-sortIcon
                             field="height"></p-sortIcon></th>
 
-                    <th pResizableColumn pSortableColumn="inventoryStatus" style="min-width:10rem">Status <p-sortIcon
+                    <th pResizableColumn pSortableColumn="inventoryStatus" style="min-width:10rem">Estatus <p-sortIcon
                             field="inventoryStatus"></p-sortIcon></th>
                     <th pResizableColumn >Opciones de Producto</th>
-                    <th pResizableColumn >Product Supplies</th>
+                    <th pResizableColumn >Insumos</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
@@ -72,14 +72,14 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">
-                <div class="flex align-items-center justify-content-between">In total there are {{ products ?
-                    products.length : 0 }} products.</div>
+                <div class="flex align-items-center justify-content-between">En total hay {{ products ?
+                    products.length : 0 }} productos.</div>
             </ng-template>
         </p-table>
     </div>
 
 
-    <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
+    <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Detalles de Producto" [modal]="true"
         styleClass="p-fluid">
         <ng-template pTemplate="content">
             <div class="field">
@@ -90,7 +90,7 @@
             <div class="field">
                 <label for="name">Nombre</label>
                 <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
-                <small class="p-error" *ngIf="submitted && !product.name">Nombre is required.</small>
+                <small class="p-error" *ngIf="submitted && !product.name">Nombre es requerido.</small>
             </div>
             <div class="field">
                 <label for="description">Description</label>
@@ -99,28 +99,28 @@
             </div>
 
             <div class="field">
-                <label for="width">Width</label>
+                <label for="width">Ancho</label>
                 <input type="text" pInputText id="width" [(ngModel)]="product.width" required autofocus />
-                <small class="p-error" *ngIf="submitted && !product.width">Width is required.</small>
+                <small class="p-error" *ngIf="submitted && !product.width">Ancho es requerido.</small>
             </div>
             <div class="field">
-                <label for="length">Length</label>
+                <label for="length">Largo</label>
                 <input type="text" pInputText id="length" [(ngModel)]="product.length" required autofocus />
-                <small class="p-error" *ngIf="submitted && !product.length">Length is required.</small>
+                <small class="p-error" *ngIf="submitted && !product.length">Largo es requerido.</small>
             </div>
             <div class="field">
-                <label for="height">Height</label>
+                <label for="height">Alto</label>
                 <input type="text" pInputText id="height" [(ngModel)]="product.height" required autofocus />
-                <small class="p-error" *ngIf="submitted && !product.height">Height is required.</small>
+                <small class="p-error" *ngIf="submitted && !product.height">Alto es requerido.</small>
             </div>
 
             <div class="field">
                 <label class="mb-3">Categoría</label>
                 <div class="formgrid grid">
                     <div class="field-radiobutton col-6">
-                        <p-radioButton id="category1" name="category" value="Marcos de Ventana"
+                        <p-radioButton id="category1" name="category" value="Window Frames"
                             [(ngModel)]="product.category"></p-radioButton>
-                        <label for="category1">Ventana Frames</label>
+                        <label for="category1">Marcos de Ventana</label>
                     </div>
                     <div class="field-radiobutton col-6">
                         <p-radioButton id="category2" name="category" value="Door Frames"
@@ -130,7 +130,7 @@
                     <div class="field-radiobutton col-6">
                         <p-radioButton id="category3" name="category" value="Pots"
                             [(ngModel)]="product.category"></p-radioButton>
-                        <label for="category3">Pots</label>
+                        <label for="category3">Maceteros</label>
                     </div>
                 </div>
             </div>
@@ -155,12 +155,13 @@
 
     <!--  ======================================= ADD Supplies ============================================================== -->
     <p-dialog [(visible)]="addSuppliesDialog" [maximizable]="true" appendTo="body" [resizable]="true" 
-    [style]="{ width: '75vw' }" header="Add Supplies" [modal]="true"
+    [style]="{ width: '75vw' }" header="Agregar Insumos" [modal]="true"
         styleClass="p-fluid">
         <ng-template pTemplate="content">
 
             <div class="card">
-                <p-table [scrollable]="true" [resizableColumns]="true" scrollHeight="flex" [value]="otherSupplies" [(selection)]="selectedSupplies" dataKey="id"
+                <p-table [scrollable]="true" [resizableColumns]="true" scrollHeight="flex" [value]="otherSupplies"
+                 [(selection)]="selectedSupplies" dataKey="id"
                     [tableStyle]="{'min-width': '50rem'}">
                     <ng-template pTemplate="header">
                         <tr>
@@ -169,11 +170,11 @@
                             </th>
                             <td>Id</td>
                             <th pResizableColumn >Nombre</th>
-                            <th pResizableColumn >Cost</th>
-                            <th pResizableColumn >Buy Unit</th>
-                            <th pResizableColumn >Use Unit</th>
-                            <th pResizableColumn >Equivalence</th>
-                            <th pResizableColumn >Quantity</th>
+                            <th pResizableColumn >Costo</th>
+                            <th pResizableColumn >Unidad de compra</th>
+                            <th pResizableColumn >Unidad de uso</th>
+                            <th pResizableColumn >Equivalencia</th>
+                            <th pResizableColumn >Cantidad</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-supply>
@@ -207,7 +208,7 @@
     <!--  ======================================= EDIT Supplies ============================================================== -->
 
     <p-dialog [(visible)]="editSuppliesDialog" [maximizable]="true" appendTo="body" [resizable]="true" 
-     [style]="{ width: '75vw' }" header="Edit Supplies" [modal]="true"
+     [style]="{ width: '75vw' }" header="Editar Insumos" [modal]="true"
         styleClass="p-fluid">
         <ng-template pTemplate="content">
 
@@ -221,11 +222,11 @@
                             </th>
                             <th pResizableColumn >Id</th>
                             <th pResizableColumn >Nombre</th>
-                            <th pResizableColumn >Cost</th>
-                            <th pResizableColumn >Buy Unit</th>
-                            <th pResizableColumn >Use Unit</th>
-                            <th pResizableColumn >Equivalence</th>
-                            <th pResizableColumn >Quantity</th>
+                            <th pResizableColumn >Costo</th>
+                            <th pResizableColumn >Unidad de compra</th>
+                            <th pResizableColumn >Unidad de uso</th>
+                            <th pResizableColumn >Equivalencia</th>
+                            <th pResizableColumn >Cantidad</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-supply>
